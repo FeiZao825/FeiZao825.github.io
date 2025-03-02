@@ -58,6 +58,47 @@
     
     
     <entry>
+      <title>电池论文记录</title>
+      <link href="/2025/03/02/%E7%94%B5%E6%B1%A0%E8%AE%BA%E6%96%87/"/>
+      <url>/2025/03/02/%E7%94%B5%E6%B1%A0%E8%AE%BA%E6%96%87/</url>
+      
+        <content type="html"><![CDATA[<h2 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h2><p>**1.**电池采集原始数据（充放电电压，容量，IC曲线等）做特征工程，提取30个特征点</p><p>**2.**根据特征工程数据集通过同质或异质划分数据集，先对数据集添加噪声，随后将数据分发到各个客户端，客户端对数据进行重采样后进行本地训练。</p><ul><li><p>为了解决数据稀缺性问题，研究采用了<strong>数据增强</strong>技术。具体方法是对每个电池类别的数据进行重采样（Bootstrap），通过有放回采样的方式，增加每个类别的数据量，最终将每个类别的数据扩展到200条记录。</p></li><li><p><strong>高斯噪声添加</strong>：为了进一步保护隐私，并验证模型对噪声的鲁棒性，在增强后的数据上添加了随机高斯噪声，噪声强度由噪声-信号比（NSR）控制，范围从1%到10%。这种噪声的加入是为了评估模型在不同隐私预算下的表现。</p></li><li><p>数据集被分为训练集和测试集，分别按照80%和20%的比例进行划分。此外，在训练集中再进行40%的二次划分，用于交叉验证。</p></li><li><p>数据的划分采用分层抽样的方式，确保在每个客户端的数据样本分布中，各个电池类别都有足够的代表性。</p></li></ul><p><strong>同质 (Homogeneous)</strong></p><ul><li><strong>定义</strong>：同质集成指的是集成模型中的所有基学习器都是同一种类型的模型。在随机森林中，所有基学习器通常都是<strong>决策树</strong>，因此随机森林本身是一个<strong>同质集成模型</strong>。</li><li><strong>特点</strong>：虽然所有基学习器都是决策树，但通过对数据集进行不同的采样（即通过引入随机性，如数据采样和特征选择），每棵决策树的结构和预测结果可能会有所不同。这种通过随机性引入的差异使得同质集成的模型在一定程度上具有多样性。</li></ul><p><strong>例子</strong>：</p><ul><li>随机森林的每个基学习器都是决策树，虽然它们的模型形式相同，但由于每棵树基于不同的数据子集和特征子集构建，因此形成了同质集成。</li></ul><h5 id="异质-Heterogeneous"><a href="#异质-Heterogeneous" class="headerlink" title="异质 (Heterogeneous)"></a>异质 (Heterogeneous)</h5><ul><li><strong>定义</strong>：异质集成是指集成模型中的基学习器由不同类型的模型组成。在这种情况下，集成模型会结合多种不同类型的算法来构建。例如，你可以结合决策树、支持向量机（SVM）、神经网络、k近邻算法等模型。</li><li><strong>特点</strong>：由于不同类型的模型通常具有不同的假设和表现，异质集成模型能够通过结合不同的模型优势，提高整体的预测性能和稳健性。这种方法通常被称为“<strong>堆叠（stacking）</strong>”或“集成学习”的一种复杂形式。</li></ul><p><strong>例子</strong>：</p><ul><li>使用决策树、逻辑回归和支持向量机来创建一个集成模型。不同模型的预测结果可以通过投票、平均或堆叠来聚合。</li></ul><h4 id="区别总结："><a href="#区别总结：" class="headerlink" title="区别总结："></a>区别总结：</h4><ul><li><strong>同质集成</strong>：所有基学习器都是相同类型的模型（如随机森林中的所有树都是决策树）。</li><li><strong>异质集成</strong>：基学习器由不同类型的模型组成（如组合决策树、SVM、神经网络等）。</li></ul><p>随机森林是一种典型的<strong>同质集成模型</strong>，通过引入随机性（如随机选择特征和样本）来增加模型的多样性，从而提升整体表现。</p><p><strong>3.<strong>使用WDV投票机制，将每个客户端中的结果进行聚合，参与者上传给中心服务器的并不是随机森林模型的原始参数或训练数据，而是每个参与者在本地随机森林模型上</strong>预测的结果</strong>。随机森林的聚合通常是通过投票，平均法或bagging等方法对每个随机森林的最后预测结果进行聚合，以投票法为例，可以理解为取随机森林结果中概率最大的那个预测结果。</p><p><strong>本地模型训练与预测结果生成</strong></p><p>每个参与者使用本地数据集训练一个随机森林模型。这些随机森林模型基于本地数据进行训练，而不与其他参与者的数据共享。</p><ul><li>随机森林模型由多个决策树组成，参与者使用本地的电池数据进行训练，生成模型。</li><li>训练完毕后，参与者会根据本地模型对测试数据或实时数据做出预测，生成预测结果。</li></ul><p><strong>上传的内容：预测结果</strong></p><p>在联邦学习框架中，参与者并不上传原始数据或者完整的模型参数，而是上传经过模型计算的<strong>预测结果</strong>。这些预测结果可以是对给定输入数据的分类或回归输出。上传的预测结果通过加密保护，保证在传输过程中不会泄露原始数据。</p><p><strong>服务器聚合过程</strong></p><p>服务器接收到各个参与者的预测结果后，通过<strong>Wasserstein距离投票（WDV）</strong>或其他加权投票策略来对这些结果进行聚合。具体步骤如下：</p><ul><li>每个参与者上传的预测结果（如对电池类型的分类）被聚合时，服务器会根据每个参与者与全局模型之间的Wasserstein距离，计算该参与者的权重。</li><li>这些预测结果会通过加权投票的方式整合为最终的全局预测结果。服务器根据各个参与者的预测分布进行加权，得到最符合全局目标的分类结果。</li></ul><p><strong>聚合的目标</strong></p><p>这种聚合方式的目标是通过每个参与者的本地模型提供的预测结果，来生成一个全局模型或决策结果。与传统的模型参数聚合不同，论文采用的是基于各地预测结果的聚合，这样不仅保护了参与者的数据隐私，还能有效处理不同参与者之间的数据异构性问题。</p><p><strong>差分隐私保护</strong></p><p>为了进一步保障隐私，上传的预测结果会在发送之前经过差分隐私处理。例如，参与者会在预测结果上加入高斯噪声，确保即使服务器接收到这些预测结果，也无法还原回原始数据。这样可以有效防止数据泄露，同时保持较高的模型准确性。</p><p>**4.**加入隐私保护机制，通过高斯噪声实现，噪声主要是在模型上传阶段和数据增强阶段引入的。在本地训练完模型之后就会加入噪声，在上传到服务器前就会执行的步骤</p><p>手工实现adam，在adam中添加噪声实现隐私，可以在每个节点上添加噪声</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 论文 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 论文 </tag>
+            
+            <tag> 电池 </tag>
+            
+            <tag> 特征工程 </tag>
+            
+            <tag> 随机森林 </tag>
+            
+            <tag> 数据同质和异质性 </tag>
+            
+            <tag> 数据处理 </tag>
+            
+            <tag> 联邦学习 </tag>
+            
+            <tag> admm </tag>
+            
+            <tag> 隐私保护 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2025/02/23/hello-world/"/>
       <url>/2025/02/23/hello-world/</url>
@@ -65,6 +106,91 @@
         <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
       
       
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>everything软件正则匹配规则</title>
+      <link href="/2025/01/21/everything/"/>
+      <url>/2025/01/21/everything/</url>
+      
+        <content type="html"><![CDATA[<h2 id="正则表达式重命名匹配规则"><a href="#正则表达式重命名匹配规则" class="headerlink" title="正则表达式重命名匹配规则"></a>正则表达式重命名匹配规则</h2><p>以“Steins_Gate S01E02]<a href="81BF513C">x264_flac</a>.mkv”为例，快速批量重命名文件为“Steins_Gate S01E02.mkv”</p><p>(Steins_Gate S01E\d+)[.*](.*).(mkv|sc.ass)提取两个括号中的内容，使用\d提取集数，提取mkv和sc.ass</p><p>\1.\2重命名文件，\1匹配上述第一个括号内的内容，\2匹配上述第二个括号.(mkv|sc.ass)的文件后缀</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件 </tag>
+            
+            <tag> everything </tag>
+            
+            <tag> nas </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SSH的相关使用</title>
+      <link href="/2024/12/31/ssh/"/>
+      <url>/2024/12/31/ssh/</url>
+      
+        <content type="html"><![CDATA[<h2 id="SSH连接密钥生成"><a href="#SSH连接密钥生成" class="headerlink" title="SSH连接密钥生成"></a>SSH连接密钥生成</h2><p>ssh-keygen -t rsa -b 4096 -C “feizao”</p><p><code>ssh-keygen</code> 是用于生成、管理和转换 SSH（Secure Shell）认证密钥的工具。 <code>ssh-keygen -t -rsa -b 4096 -C &quot;feizao&quot;</code> 的含义如下：</p><ul><li><code>-t rsa</code>：指定密钥类型为 RSA。</li><li><code>-b 4096</code>：设置密钥长度为 4096 位。</li><li><code>-C &quot;feizao&quot;</code>：为密钥添加注释 “feizao”。</li></ul><p>执行此命令后，系统会提示您指定保存密钥的位置&#x2F;root&#x2F;.ssh&#x2F;id_rs（默认情况下为 <code>~/.ssh/id_rsa</code>），以及设置用于保护私钥的密码短语（可以为空，但这会降低安全性）。 生成的密钥对包括一个私钥（仅您自己保存）和一个公钥（可分发给需要验证您身份的服务器）。</p><p>.pub指公钥，其功能是需要把它放到例如github、gitee之类的代码平台上，告诉我们这里有一扇门。我们需要使用本地的私钥来访问这扇门，即公钥-私钥的配对，公钥可以理解为门，私钥可以理解为门的钥匙。</p><h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>git init 本地新建并初始化一个仓库</p><p>使用ssh方式git需要在本地.ssh中同时放入.pub和id_rsa，即公钥和私钥来访问私有仓库</p><p><strong>下载代码</strong></p><p>git clone <a href="mailto:&#x67;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#x65;&#x65;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#x65;&#x65;&#x2e;&#99;&#x6f;&#x6d;</a>:feizao1145&#x2F;gans-fed.git 获取远程仓库</p><p>git clone *** –depth 10 通过添加 –depth 10来指定获取最近10次的提交结果</p><p>[</p><p>git submodule update –init –recursive  对于一些很久的分支，要用这个更新一下子模块</p><p>git status 查看状态,确定一下是否有没有track的子模块</p><p>]</p><p><strong>提交代码</strong></p><p>git config –global user.email “<a href="mailto:&#49;&#x33;&#x36;&#56;&#50;&#x39;&#53;&#51;&#53;&#x39;&#x40;&#113;&#x71;&#x2e;&#x63;&#x6f;&#x6d;">&#49;&#x33;&#x36;&#56;&#50;&#x39;&#53;&#51;&#53;&#x39;&#x40;&#113;&#x71;&#x2e;&#x63;&#x6f;&#x6d;</a>“ 提交者邮箱</p><p>git config –global user.name “feizao” 提交者姓名</p><p>通过上述代码可以看到提交者是谁，通过git log查看提交记录</p><p>git checkout -b feizao&#x2F;1221_test 在现有分支（默认分支）上克隆创建一个新的分支，尽量用日期命名，过几天可以换一个新的分支来维护</p><p>TIPS:vscode中代码旁标绿或文件旁边有M(modify)代表该文件有修改</p><p>git add xxx.py 添加更改的文件到缓存区，最好是改一步就提交一次，不要一次性改完再提交</p><p>git commit -m “xxxx” 添加评论</p><p>截止目前的操作都在本地进行，下一步将本地操作上传到远程仓库</p><p>git push –set-upstream origin feizao&#x2F;1221_test 第一次提交创建的分支时需使用该命令来在远程仓库的origin原始仓库新建一个分支</p><p>也可以在vscode中选择当前的分支，在当前分支基础上生成一个新的分支</p><p>git reset –soft HEAD^ 将上次提交的代码回退，撤销本次修改 </p><h2 id="合并分支代码到master"><a href="#合并分支代码到master" class="headerlink" title="合并分支代码到master"></a>合并分支代码到master</h2><p>1.先从分支切换到master</p><p>​git checkout master</p><p>2.拉取远程master分支最新代码：合并前确保master分支本地与远程同步</p><p>​git pull origin master</p><p>3.合并分支（1221_test）到master</p><p>​git merge 1221_test 合并分支到当前所处分支</p><p>4.推送合并后的本地master分支到远程</p><p>​git push origin master</p><p>5.（可选）删除分支，假设该分支的开发任务已完成不需要了</p><p>​删除本地：git branch -d 1221_test</p><p>​删除远程：git push origin –delete 1221_test</p><h2 id="pytorch的一些记录"><a href="#pytorch的一些记录" class="headerlink" title="pytorch的一些记录"></a>pytorch的一些记录</h2><p>loss.backward() 这个函数并不针对具体哪个模型的某个参数，而是对loss这个变量中包含的所有参数进行求导来得到梯度，然后在通过optimizer.step()优化器来进行梯度更新，因此会对loss中所包含的所有参数梯度进行更新</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> ssh </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> github </tag>
+            
+            <tag> ssh </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>DLADMM算法</title>
+      <link href="/2024/10/20/dladmm/"/>
+      <url>/2024/10/20/dladmm/</url>
+      
+        <content type="html"><![CDATA[<h2 id="3-DLADMM算法"><a href="#3-DLADMM算法" class="headerlink" title="3  DLADMM算法"></a>3  DLADMM算法</h2><h4 id="3-1"><a href="#3-1" class="headerlink" title="3.1"></a>3.1</h4><p>将原有的深度学习的目标即损失函数转化为一个优化问题</p><p>首先介绍了深度学习网络的基本结构以及反向传播算法，其次定义了优化问题1即损失函数，通过最小化损失函数来接近正确值，同时为了防止过拟合，引入了正则化项，为了确保优化过程中参数更新能够保持每一层之间的关系，引入了约束条件：线性约束与激活函数的约束。</p><p>松弛问题：<a href="https://blog.csdn.net/universsky2015/article/details/135796968">https://blog.csdn.net/universsky2015/article/details/135796968</a> </p><p>深度网络中涉及到非线性和高维的参数，直接求解优化问题较困难，因此引入了松弛定义来简化问题解决问题2，将问题1的约束条件进行了简化，通过松弛，问题的<strong>硬性约束</strong>被转化为<strong>惩罚项</strong>，并且并入了目标函数的一部分。这样，原本必须满足的约束条件现在只需要逐渐逼近就可以了。ADMM本身是一种将复杂优化问题拆分为若干个子问题分别求解的优化方法，松弛项的引入使得每个子问题都更加易于处理，从而提高了整体算法的效率。</p><h4 id="3-2-DLADMM算法"><a href="#3-2-DLADMM算法" class="headerlink" title="3.2 DLADMM算法"></a>3.2 DLADMM算法</h4><p>与传统的反向算法相比，在反向传播计算梯度更新权重和参数之后引入了向前传播再一次进行求梯度更新参数，这一步补充了传统BP算法的不足，特别是对前几层（靠近输入层）的调整更加及时，因为这几层在传统的BP中往往要等到误差传递过来之后才能更新。而向前更新能够让这些层更早地得到反馈信息，从而加快了模型的收敛速度。</p><p>admm的基础思想是将一个复杂的优化问题分为多个子问题。<strong>梯度下降</strong>主要用于<strong>无约束优化问题</strong>，即模型的目标是最小化一个损失函数，但没有特定的约束条件。<strong>ADMM</strong>更适合处理<strong>带有约束的优化问题</strong>，它通过引入拉格朗日乘子，将约束条件转化为可解的子问题。可以将admm理解为并行处理多个问题。惩罚函数的作用是将有约束转换为无约束</p><p>dlADMM的核心在于通过<strong>增广拉格朗日函数</strong>解决深度学习中的优化问题，并结合ADMM的方法将问题分解为多个小问题。增广拉格朗日函数用于处理神经网络的参数优化，并通过加入惩罚项来约束层与层之间的关系</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> dladmm </tag>
+            
+            <tag> 梯度更新 </tag>
+            
+        </tags>
       
     </entry>
     
