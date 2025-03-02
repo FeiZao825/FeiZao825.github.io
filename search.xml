@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>hexo主题美化设置</title>
+      <link href="/2025/03/02/hexo%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E8%AE%BE%E7%BD%AE/"/>
+      <url>/2025/03/02/hexo%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E8%AE%BE%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<h2 id="hexo主题美化设置"><a href="#hexo主题美化设置" class="headerlink" title="hexo主题美化设置"></a>hexo主题美化设置</h2><p>hexo下的相关配置分为主站配置和对应的主题配置文件。以本项目为例：项目配置文件在主路径&#x2F;blog下的_config.yml，而和主题相关配置的文件在&#x2F;blog&#x2F;themes&#x2F;hexo-theme-matery下的_config.yml中。</p><p>简单来说，我们可以认为当我们需要改变和当前主题的有关配置时（如美化，更换背景、主题的文字和标签分类），我们可以到主题的配置文件中去寻找。而当我们需要去更改一些全局配置时（如标签页的文字，网站的语言和主标题），我们应当到主站的配置文件中去寻找。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>在mac上使用github + hexo 建立个人博客</title>
       <link href="/2025/03/02/github%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"/>
       <url>/2025/03/02/github%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/</url>
