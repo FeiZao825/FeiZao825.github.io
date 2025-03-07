@@ -4,9 +4,24 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SSH的相关使用, 博客搭建,个人学习经验,深度学习,嵌入式等">
-    <meta name="description" content="SSH连接密钥生成ssh-keygen -t rsa -b 4096 -C “feizao”
-ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥的工具。 ssh-keygen -t -rsa -b 40">
+    <meta name="keywords" content="模型剪枝, 博客搭建,个人学习经验,深度学习,嵌入式等">
+    <meta name="description" content="
+
+
+符号
+定义
+在 PruneFL 中的角色
+
+
+
+⊙
+两个向量的逐元素乘积
+用于掩码操作，例如将参数向量与掩码向量相乘，保留重要参数，剪枝不重要参数。
+
+
+n, N
+客户端索引（单个设备）、客户端总数
+表示参与联邦学习的边缘设备，N 是">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +33,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>SSH的相关使用 | 大概是个博客</title>
+    <title>模型剪枝 | 大概是个博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -267,12 +282,12 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SSH的相关使用</h1>
+                    <h1 class="description center-align post-title">模型剪枝</h1>
                 </div>
             </div>
         </div>
@@ -296,12 +311,20 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/github/">
-                                <span class="chip bg-color">github</span>
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
                             </a>
                         
-                            <a href="/tags/ssh/">
-                                <span class="chip bg-color">ssh</span>
+                            <a href="/tags/%E8%AE%BA%E6%96%87/">
+                                <span class="chip bg-color">论文</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">联邦学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%A8%A1%E5%9E%8B%E5%89%AA%E6%9E%9D/">
+                                <span class="chip bg-color">模型剪枝</span>
                             </a>
                         
                     </div>
@@ -312,8 +335,8 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/ssh/" class="post-category">
-                                ssh
+                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                深度学习
                             </a>
                         
                     </div>
@@ -325,7 +348,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-12-31
+                    2025-03-07
                 </div>
                 
 
@@ -334,14 +357,14 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    929
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    4 分
                 </div>
                 
 
@@ -361,48 +384,89 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="SSH连接密钥生成"><a href="#SSH连接密钥生成" class="headerlink" title="SSH连接密钥生成"></a>SSH连接密钥生成</h2><p>ssh-keygen -t rsa -b 4096 -C “feizao”</p>
-<p><code>ssh-keygen</code> 是用于生成、管理和转换 SSH（Secure Shell）认证密钥的工具。 <code>ssh-keygen -t -rsa -b 4096 -C &quot;feizao&quot;</code> 的含义如下：</p>
-<ul>
-<li><code>-t rsa</code>：指定密钥类型为 RSA。</li>
-<li><code>-b 4096</code>：设置密钥长度为 4096 位。</li>
-<li><code>-C &quot;feizao&quot;</code>：为密钥添加注释 “feizao”。</li>
-</ul>
-<p>执行此命令后，系统会提示您指定保存密钥的位置&#x2F;root&#x2F;.ssh&#x2F;id_rs（默认情况下为 <code>~/.ssh/id_rsa</code>），以及设置用于保护私钥的密码短语（可以为空，但这会降低安全性）。 生成的密钥对包括一个私钥（仅您自己保存）和一个公钥（可分发给需要验证您身份的服务器）。</p>
-<p>.pub指公钥，其功能是需要把它放到例如github、gitee之类的代码平台上，告诉我们这里有一扇门。我们需要使用本地的私钥来访问这扇门，即公钥-私钥的配对，公钥可以理解为门，私钥可以理解为门的钥匙。</p>
-<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>git init 本地新建并初始化一个仓库</p>
-<p>使用ssh方式git需要在本地.ssh中同时放入.pub和id_rsa，即公钥和私钥来访问私有仓库</p>
-<p><strong>下载代码</strong></p>
-<p>git clone <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#101;&#x65;&#46;&#x63;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#101;&#x65;&#46;&#x63;&#x6f;&#x6d;</a>:feizao1145&#x2F;gans-fed.git 获取远程仓库</p>
-<p>git clone *** –depth 10 通过添加 –depth 10来指定获取最近10次的提交结果</p>
-<p>[</p>
-<p>git submodule update –init –recursive  对于一些很久的分支，要用这个更新一下子模块</p>
-<p>git status 查看状态,确定一下是否有没有track的子模块</p>
-<p>]</p>
-<p><strong>提交代码</strong></p>
-<p>git config –global user.email “<a href="mailto:&#x31;&#x33;&#54;&#56;&#50;&#57;&#53;&#x33;&#53;&#57;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#109;">&#x31;&#x33;&#54;&#56;&#50;&#57;&#53;&#x33;&#53;&#57;&#x40;&#x71;&#x71;&#x2e;&#99;&#111;&#109;</a>“ 提交者邮箱</p>
-<p>git config –global user.name “feizao” 提交者姓名</p>
-<p>通过上述代码可以看到提交者是谁，通过git log查看提交记录</p>
-<p>git checkout -b feizao&#x2F;1221_test 在现有分支（默认分支）上克隆创建一个新的分支，尽量用日期命名，过几天可以换一个新的分支来维护</p>
-<p>TIPS:vscode中代码旁标绿或文件旁边有M(modify)代表该文件有修改</p>
-<p>git add xxx.py 添加更改的文件到缓存区，最好是改一步就提交一次，不要一次性改完再提交</p>
-<p>git commit -m “xxxx” 添加评论</p>
-<p>截止目前的操作都在本地进行，下一步将本地操作上传到远程仓库</p>
-<p>git push –set-upstream origin feizao&#x2F;1221_test 第一次提交创建的分支时需使用该命令来在远程仓库的origin原始仓库新建一个分支</p>
-<p>也可以在vscode中选择当前的分支，在当前分支基础上生成一个新的分支</p>
-<p>git reset –soft HEAD^ 将上次提交的代码回退，撤销本次修改 </p>
-<h2 id="合并分支代码到master"><a href="#合并分支代码到master" class="headerlink" title="合并分支代码到master"></a>合并分支代码到master</h2><p>1.先从分支切换到master</p>
-<p>​	git checkout master</p>
-<p>2.拉取远程master分支最新代码：合并前确保master分支本地与远程同步</p>
-<p>​	git pull origin master</p>
-<p>3.合并分支（1221_test）到master</p>
-<p>​	git merge 1221_test 合并分支到当前所处分支</p>
-<p>4.推送合并后的本地master分支到远程</p>
-<p>​	git push origin master</p>
-<p>5.（可选）删除分支，假设该分支的开发任务已完成不需要了</p>
-<p>​	删除本地：git branch -d 1221_test</p>
-<p>​	删除远程：git push origin –delete 1221_test</p>
-<h2 id="pytorch的一些记录"><a href="#pytorch的一些记录" class="headerlink" title="pytorch的一些记录"></a>pytorch的一些记录</h2><p>loss.backward() 这个函数并不针对具体哪个模型的某个参数，而是对loss这个变量中包含的所有参数进行求导来得到梯度，然后在通过optimizer.step()优化器来进行梯度更新，因此会对loss中所包含的所有参数梯度进行更新</p>
+                <table>
+<thead>
+<tr>
+<th align="left"><strong>符号</strong></th>
+<th align="left"><strong>定义</strong></th>
+<th align="center"><strong>在 PruneFL 中的角色</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>⊙</strong></td>
+<td align="left">两个向量的逐元素乘积</td>
+<td align="center">用于掩码操作，例如将参数向量与掩码向量相乘，保留重要参数，剪枝不重要参数。</td>
+</tr>
+<tr>
+<td align="left"><strong>n, N</strong></td>
+<td align="left">客户端索引（单个设备）、客户端总数</td>
+<td align="center">表示参与联邦学习的边缘设备，N 是设备总数，用于分布式训练和参数聚合。</td>
+</tr>
+<tr>
+<td align="left"><strong>k, K</strong></td>
+<td align="left">迭代索引（通信轮次）、总迭代次数</td>
+<td align="center">表示联邦学习的通信轮次，k 是当前轮次，K 是训练总轮次。</td>
+</tr>
+<tr>
+<td align="left"><strong>I</strong></td>
+<td align="left">本地迭代次数（每个客户端的 SGD 步骤数）</td>
+<td align="center">客户端在本地数据上进行的参数更新次数，影响本地计算开销和模型收敛速度。</td>
+</tr>
+<tr>
+<td align="left"><strong>pₙ</strong></td>
+<td align="left">客户端 n 的聚合权重</td>
+<td align="center">用于服务器聚合客户端参数时的加权平均，例如根据客户端数据量分配权重。</td>
+</tr>
+<tr>
+<td align="left"><strong>m(k)</strong></td>
+<td align="left">第 k 次迭代中的权重掩码（所有客户端共享）</td>
+<td align="center">动态剪枝的关键，掩码中 0 表示参数被剪枝，1 表示保留。通过自适应策略更新，减少模型大小和通信开销。</td>
+</tr>
+<tr>
+<td align="left"><strong>wₙ(k)</strong></td>
+<td align="left">客户端 n 在第 k 次迭代时的本地参数</td>
+<td align="center">客户端本地训练后的模型参数，上传至服务器进行聚合。</td>
+</tr>
+<tr>
+<td align="left"><strong>w(k)</strong></td>
+<td align="left">全局参数（加权平均）</td>
+<td align="center">服务器聚合后的全局模型参数，下发至各客户端进行下一轮训练。</td>
+</tr>
+<tr>
+<td align="left"><strong>w’ₙ(k), w’(k)</strong></td>
+<td align="left">剪枝后的参数</td>
+<td align="center">应用掩码后的稀疏参数，仅保留重要参数，用于减少计算和通信负载。</td>
+</tr>
+<tr>
+<td align="left"><strong>gₙ(w)</strong></td>
+<td align="left">客户端 n 在参数 w 处的随机梯度（w为模型参数向量）</td>
+<td align="center">本地 SGD 计算的梯度，用于更新本地参数。在剪枝中可能用于评估参数重要性。</td>
+</tr>
+<tr>
+<td align="left"><strong>∇Fₙ(w)</strong></td>
+<td align="left">客户端 n 在参数 w 处的期望梯度</td>
+<td align="center">理论上的平均梯度，与随机梯度相对，用于收敛性分析。</td>
+</tr>
+<tr>
+<td align="left"><strong>∇F(w)</strong></td>
+<td align="left">全局期望梯度</td>
+<td align="center">全局模型的梯度方向，指导参数更新。在剪枝中可能用于优化掩码选择策略。</td>
+</tr>
+</tbody></table>
+<p>模型剪枝也叫模型稀疏化，即将部分对网络贡献较小的特征剔除或者置0，稀疏化可以分为两类：权重稀疏化（将网络中某些权重值设为0或删除，通过L1正则化或剪枝技术）和结构稀疏化（神经元剪枝）。模型中可以被剪枝（稀疏）的对象通常为权重、神经元（激活函数）、梯度。可以认为模型稀疏或剪枝的方法为置0和删除，个人认为稀疏对应置0，剪枝对应删除。</p>
+<h4 id="1-权重稀疏"><a href="#1-权重稀疏" class="headerlink" title="1. 权重稀疏"></a>1. 权重稀疏</h4><p>通常认为权重的绝对值大小是一种重要的衡量指标，权重数值越大代表对网络的输出贡献也越大，反之则不重要，删去对网络的影响也较小。</p>
+<p>通常通过L1、L2正则化来迫使一些权重趋向于0，将一些低于阈值的权重参数删除，反复迭代这个删除过程知道模型的规模和精度达到预期。因为即使移除绝对值接近0的权重也会导致推理精度的损失，所以通常在剪枝后需要再训练。剪枝常做的三段式工作：训练、剪枝、微调。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/20250307213104479.png"></p>
+<h4 id="2-神经元（激活函数）稀疏"><a href="#2-神经元（激活函数）稀疏" class="headerlink" title="2. 神经元（激活函数）稀疏"></a>2. 神经元（激活函数）稀疏</h4><p>首先这里给出现代网络常用激活函数ReLU函数的定义：<code>ReLU(x)=max(0,x)</code>，负值的输入都会被置为0，这种方法也可以认为是通过激活函数的方法给网络进行稀疏化。同样池化操作也可以产生类似形式，受此现象启发，我们发现CNN中许多的神经元都是低激活状态的，因此我们认为<strong>零神经元</strong>可能是冗余的，可以在不影响整体网络精度的情况下移除，即对网络中的神经元进行剪枝，做移除神经元操作。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/20250307212857550.png"></p>
+<h4 id="3-梯度稀疏"><a href="#3-梯度稀疏" class="headerlink" title="3. 梯度稀疏"></a>3. 梯度稀疏</h4><p>通常采用选择固定比例的正负梯度更新或预设阈值。</p>
+<p><strong>深度梯度压缩</strong>：在梯度稀疏化基础上采用动量修正、本地梯度剪裁、动量因子遮蔽和 warm-up训练 4 种方法来做梯度压缩，从而减少分布式训练中的通信带宽。</p>
+<p>神经网络的权重、激活和梯度稀疏性总结：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/20250307213200481.png"></p>
+<h4 id="4-结构化稀疏"><a href="#4-结构化稀疏" class="headerlink" title="4. 结构化稀疏"></a>4. 结构化稀疏</h4><p>分为Channel&#x2F;Filter 剪枝或shape-wise 剪枝，即对网络的层数（滤波器）或网络的大小进行剪裁。channel 剪枝的工作是最多的，channel 剪枝和 filter 剪枝其实意义是一样的，一个过滤器移除了，对应输出 feature map 的一个通道自然也被移除，反之一样。</p>
+<p><strong>阶段式剪枝</strong>：可以弥补滤波器级剪枝的不足，如下图所示。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503072144121.jpg" alt="v2-9666cdccffe0dd988c1796049073d4eb_1440w"></p>
+<p>图中N1、N2等代表的是每一层实际保留的通道数，如a)原始模型有64个通道，b)中删减为了N1个。</p>
 
                 
             </div>
@@ -429,7 +493,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2024/12/31/ssh/">http://example.com/2024/12/31/ssh/</a>
+                    <a href="http://example.com/2025/03/07/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E5%89%AA%E6%9E%9D/">http://example.com/2025/03/07/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E5%89%AA%E6%9E%9D/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -467,12 +531,20 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/github/">
-                                    <span class="chip bg-color">github</span>
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
                                 </a>
                             
-                                <a href="/tags/ssh/">
-                                    <span class="chip bg-color">ssh</span>
+                                <a href="/tags/%E8%AE%BA%E6%96%87/">
+                                    <span class="chip bg-color">论文</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">联邦学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%A8%A1%E5%9E%8B%E5%89%AA%E6%9E%9D/">
+                                    <span class="chip bg-color">模型剪枝</span>
                                 </a>
                             
                         </div>
@@ -518,74 +590,18 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/01/21/everything/">
+                <a href="/2025/03/07/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A8%A1%E5%9E%8B%E5%89%AA%E6%9E%9D/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="everything软件正则匹配规则">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="模型剪枝">
                         
-                        <span class="card-title">everything软件正则匹配规则</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-21
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6/" class="post-category">
-                                    软件
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6/">
-                        <span class="chip bg-color">软件</span>
-                    </a>
-                    
-                    <a href="/tags/everything/">
-                        <span class="chip bg-color">everything</span>
-                    </a>
-                    
-                    <a href="/tags/nas/">
-                        <span class="chip bg-color">nas</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2024/10/20/dladmm/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="DLADMM算法">
-                        
-                        <span class="card-title">DLADMM算法</span>
+                        <span class="card-title">模型剪枝</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -596,7 +612,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-07
                             </span>
                         <span class="publish-author">
                             
@@ -610,6 +626,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -617,12 +634,65 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                         <span class="chip bg-color">深度学习</span>
                     </a>
                     
-                    <a href="/tags/dladmm/">
-                        <span class="chip bg-color">dladmm</span>
+                    <a href="/tags/%E8%AE%BA%E6%96%87/">
+                        <span class="chip bg-color">论文</span>
                     </a>
                     
-                    <a href="/tags/%E6%A2%AF%E5%BA%A6%E6%9B%B4%E6%96%B0/">
-                        <span class="chip bg-color">梯度更新</span>
+                    <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">联邦学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%A8%A1%E5%9E%8B%E5%89%AA%E6%9E%9D/">
+                        <span class="chip bg-color">模型剪枝</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/02/hexo%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E8%AE%BE%E7%BD%AE/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="hexo主题美化设置">
+                        
+                        <span class="card-title">hexo主题美化设置</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/hexo/" class="post-category">
+                                    hexo
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/hexo/">
+                        <span class="chip bg-color">hexo</span>
                     </a>
                     
                 </div>
