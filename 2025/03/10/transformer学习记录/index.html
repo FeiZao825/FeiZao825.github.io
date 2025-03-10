@@ -4,9 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SSH的相关使用, 博客搭建,个人学习经验,深度学习,嵌入式等">
-    <meta name="description" content="SSH连接密钥生成ssh-keygen -t rsa -b 4096 -C “feizao”
-ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥的工具。 ssh-keygen -t -rsa -b 40">
+    <meta name="keywords" content="transformer学习记录, 博客搭建,个人学习经验,深度学习,嵌入式等">
+    <meta name="description" content="transformer学习记录1. 注意力机制重点：词嵌入机制（embeddings）
+1.1 embeddings机制
+对于上述遇到的一些具体歧义的单词时，如Apple，既可以代表水果，也可以代表苹果品牌。传统的embeddings技术如">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +19,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>SSH的相关使用 | 大概是个博客</title>
+    <title>transformer学习记录 | 大概是个博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -272,7 +273,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SSH的相关使用</h1>
+                    <h1 class="description center-align post-title">transformer学习记录</h1>
                 </div>
             </div>
         </div>
@@ -294,29 +295,12 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/github/">
-                                <span class="chip bg-color">github</span>
-                            </a>
-                        
-                            <a href="/tags/ssh/">
-                                <span class="chip bg-color">ssh</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/ssh/" class="post-category">
-                                ssh
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -325,7 +309,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-12-31
+                    2025-03-10
                 </div>
                 
 
@@ -334,14 +318,14 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    929
+                    605
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    2 分
                 </div>
                 
 
@@ -361,48 +345,23 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="SSH连接密钥生成"><a href="#SSH连接密钥生成" class="headerlink" title="SSH连接密钥生成"></a>SSH连接密钥生成</h2><p>ssh-keygen -t rsa -b 4096 -C “feizao”</p>
-<p><code>ssh-keygen</code> 是用于生成、管理和转换 SSH（Secure Shell）认证密钥的工具。 <code>ssh-keygen -t -rsa -b 4096 -C &quot;feizao&quot;</code> 的含义如下：</p>
-<ul>
-<li><code>-t rsa</code>：指定密钥类型为 RSA。</li>
-<li><code>-b 4096</code>：设置密钥长度为 4096 位。</li>
-<li><code>-C &quot;feizao&quot;</code>：为密钥添加注释 “feizao”。</li>
-</ul>
-<p>执行此命令后，系统会提示您指定保存密钥的位置&#x2F;root&#x2F;.ssh&#x2F;id_rs（默认情况下为 <code>~/.ssh/id_rsa</code>），以及设置用于保护私钥的密码短语（可以为空，但这会降低安全性）。 生成的密钥对包括一个私钥（仅您自己保存）和一个公钥（可分发给需要验证您身份的服务器）。</p>
-<p>.pub指公钥，其功能是需要把它放到例如github、gitee之类的代码平台上，告诉我们这里有一扇门。我们需要使用本地的私钥来访问这扇门，即公钥-私钥的配对，公钥可以理解为门，私钥可以理解为门的钥匙。</p>
-<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>git init 本地新建并初始化一个仓库</p>
-<p>使用ssh方式git需要在本地.ssh中同时放入.pub和id_rsa，即公钥和私钥来访问私有仓库</p>
-<p><strong>下载代码</strong></p>
-<p>git clone <a href="mailto:&#x67;&#105;&#116;&#64;&#103;&#105;&#x74;&#101;&#101;&#46;&#99;&#111;&#x6d;">&#x67;&#105;&#116;&#64;&#103;&#105;&#x74;&#101;&#101;&#46;&#99;&#111;&#x6d;</a>:feizao1145&#x2F;gans-fed.git 获取远程仓库</p>
-<p>git clone *** –depth 10 通过添加 –depth 10来指定获取最近10次的提交结果</p>
-<p>[</p>
-<p>git submodule update –init –recursive  对于一些很久的分支，要用这个更新一下子模块</p>
-<p>git status 查看状态,确定一下是否有没有track的子模块</p>
-<p>]</p>
-<p><strong>提交代码</strong></p>
-<p>git config –global user.email “<a href="mailto:&#x31;&#x33;&#54;&#56;&#x32;&#x39;&#x35;&#51;&#53;&#x39;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#x6d;">&#x31;&#x33;&#54;&#56;&#x32;&#x39;&#x35;&#51;&#53;&#x39;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#x6d;</a>“ 提交者邮箱</p>
-<p>git config –global user.name “feizao” 提交者姓名</p>
-<p>通过上述代码可以看到提交者是谁，通过git log查看提交记录</p>
-<p>git checkout -b feizao&#x2F;1221_test 在现有分支（默认分支）上克隆创建一个新的分支，尽量用日期命名，过几天可以换一个新的分支来维护</p>
-<p>TIPS:vscode中代码旁标绿或文件旁边有M(modify)代表该文件有修改</p>
-<p>git add xxx.py 添加更改的文件到缓存区，最好是改一步就提交一次，不要一次性改完再提交</p>
-<p>git commit -m “xxxx” 添加评论</p>
-<p>截止目前的操作都在本地进行，下一步将本地操作上传到远程仓库</p>
-<p>git push –set-upstream origin feizao&#x2F;1221_test 第一次提交创建的分支时需使用该命令来在远程仓库的origin原始仓库新建一个分支</p>
-<p>也可以在vscode中选择当前的分支，在当前分支基础上生成一个新的分支</p>
-<p>git reset –soft HEAD^ 将上次提交的代码回退，撤销本次修改 </p>
-<h2 id="合并分支代码到master"><a href="#合并分支代码到master" class="headerlink" title="合并分支代码到master"></a>合并分支代码到master</h2><p>1.先从分支切换到master</p>
-<p>​	git checkout master</p>
-<p>2.拉取远程master分支最新代码：合并前确保master分支本地与远程同步</p>
-<p>​	git pull origin master</p>
-<p>3.合并分支（1221_test）到master</p>
-<p>​	git merge 1221_test 合并分支到当前所处分支</p>
-<p>4.推送合并后的本地master分支到远程</p>
-<p>​	git push origin master</p>
-<p>5.（可选）删除分支，假设该分支的开发任务已完成不需要了</p>
-<p>​	删除本地：git branch -d 1221_test</p>
-<p>​	删除远程：git push origin –delete 1221_test</p>
-<h2 id="pytorch的一些记录"><a href="#pytorch的一些记录" class="headerlink" title="pytorch的一些记录"></a>pytorch的一些记录</h2><p>loss.backward() 这个函数并不针对具体哪个模型的某个参数，而是对loss这个变量中包含的所有参数进行求导来得到梯度，然后在通过optimizer.step()优化器来进行梯度更新，因此会对loss中所包含的所有参数梯度进行更新</p>
+                <h2 id="transformer学习记录"><a href="#transformer学习记录" class="headerlink" title="transformer学习记录"></a>transformer学习记录</h2><h3 id="1-注意力机制"><a href="#1-注意力机制" class="headerlink" title="1. 注意力机制"></a>1. 注意力机制</h3><p><strong>重点</strong>：<strong>词嵌入机制</strong>（embeddings）</p>
+<h4 id="1-1-embeddings机制"><a href="#1-1-embeddings机制" class="headerlink" title="1.1 embeddings机制"></a>1.1 embeddings机制</h4><p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102107397.png" alt="image-20250310210751327"></p>
+<p>对于上述遇到的一些具体歧义的单词时，如Apple，既可以代表水果，也可以代表苹果品牌。传统的embeddings技术如onehot和wordvector很难去进行区分具有歧义的单词，在创建好的词嵌入矩阵中，一个词只能用一个预训练好的向量去表示。</p>
+<h4 id="1-2-Attention机制"><a href="#1-2-Attention机制" class="headerlink" title="1.2 Attention机制"></a>1.2 Attention机制</h4><p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102114788.png" alt="image-20250310211423751"></p>
+<p>第一句中的Apple代表水果中的苹果，而第二句中代表的是品牌中的苹果。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102120828.png" alt="image-20250310212005727"></p>
+<p>第一句中的苹果更倾向于水果类，因此我们将苹果的坐标向水果类移动；第二句中的水果倾向于电子产品类，因此向手机的坐标移动。</p>
+<p>Attention的操作就是对句子作一个并行处理。在开始时进行一个初始坐标赋值全部打乱，然后计算句子中的单词相似度来调整坐标，当两个单词意思相近时，他们之间的权重就越大，例如orange和apple。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102135998.png" alt="image-20250310213518916"></p>
+<p>类似于聚类的感觉，将其向水果类拉近。</p>
+<p><strong>多头注意力机制 Multi-head attention</strong>：假设我们现在初始化三个embedding矩阵，可以很明显看到第一个矩阵的初始化效果更好，apple这个词在手机和水果分类的中间，apple离两种歧义分的越开，那么他的效果就更好，运行效率更好，多头注意力机制就是找出这样一个最佳的原始词嵌入矩阵，此时我们遇到的新问题就是取多少个矩阵更合适。多头注意力机制并不在纵向上叠加来拉升注意力机制的维度，而在横向添加来进行并行处理。<strong>通过拆分特征维度到多个子空间（多头），实现特征学习的多样性和并行化，最后通过线性层进行融合。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102137786.png" alt="image-20250310213752725"></p>
+<p>我们可以通过线性变换来进行变换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102144895.png" alt="image-20250310214406820"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102144528.png" alt="image-20250310214453461"></p>
+<p>左边是多头注意力机制的架构图，右边是上述的过程。我们首先初始化三个词嵌入矩阵，然后通过三个权重矩阵W^Q,W^K,W^V对输入进来的三个词嵌入矩阵进行线性变换得到Q,K,V</p>
+<p><em>Q</em>&#x3D;<em>X</em>⋅<em>W**Q</em>,<em>K</em>&#x3D;<em>X</em>⋅<em>W**K</em>,<em>V</em>&#x3D;<em>X</em>⋅<em>W**V</em></p>
 
                 
             </div>
@@ -429,7 +388,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2024/12/31/ssh/">http://example.com/2024/12/31/ssh/</a>
+                    <a href="http://example.com/2025/03/10/transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">http://example.com/2025/03/10/transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -466,15 +425,7 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/github/">
-                                    <span class="chip bg-color">github</span>
-                                </a>
-                            
-                                <a href="/tags/ssh/">
-                                    <span class="chip bg-color">ssh</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -518,74 +469,18 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/01/21/everything/">
+                <a href="/2025/03/10/transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="everything软件正则匹配规则">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="transformer学习记录">
                         
-                        <span class="card-title">everything软件正则匹配规则</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-21
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6/" class="post-category">
-                                    软件
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6/">
-                        <span class="chip bg-color">软件</span>
-                    </a>
-                    
-                    <a href="/tags/everything/">
-                        <span class="chip bg-color">everything</span>
-                    </a>
-                    
-                    <a href="/tags/nas/">
-                        <span class="chip bg-color">nas</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2024/10/20/dladmm/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="DLADMM算法">
-                        
-                        <span class="card-title">DLADMM算法</span>
+                        <span class="card-title">transformer学习记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -596,35 +491,53 @@ ssh-keygen 是用于生成、管理和转换 SSH（Secure Shell）认证密钥�
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-10
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    深度学习
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            FeiZao
                             
                         </span>
                     </div>
                 </div>
+
                 
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">深度学习</span>
-                    </a>
-                    
-                    <a href="/tags/dladmm/">
-                        <span class="chip bg-color">dladmm</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%A2%AF%E5%BA%A6%E6%9B%B4%E6%96%B0/">
-                        <span class="chip bg-color">梯度更新</span>
-                    </a>
-                    
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/07/python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="python">
+                        
+                        <span class="card-title">python</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            FeiZao
+                            
+                        </span>
+                    </div>
                 </div>
                 
             </div>
