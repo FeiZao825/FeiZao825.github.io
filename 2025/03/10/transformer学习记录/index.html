@@ -295,12 +295,37 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/transformer/">
+                                <span class="chip bg-color">transformer</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%AF%8D%E5%B5%8C%E5%85%A5/">
+                                <span class="chip bg-color">词嵌入</span>
+                            </a>
+                        
+                            <a href="/tags/embeddings/">
+                                <span class="chip bg-color">embeddings</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                深度学习
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -318,14 +343,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    3.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    13 分
                 </div>
                 
 
@@ -389,15 +414,44 @@
 <p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503122124562.png" alt="image-20250312212410515"></p>
 <p>pos指当前词在整个句子中的位置，范围是0到整个句子的长度（左闭右开）。i指位置编码的维度，范围是0到2&#x2F;dmodel（左闭右开，通常为512维）。</p>
 <p>当维数为偶数时输入到sin函数，维数为奇数时输入到cos函数。</p>
-<p><strong>编码过程</strong></p>
+<p><strong>编码过程（宏观）</strong></p>
 <p>Transformer的一个核心特性，在这里输入序列中每个位置的单词都有自己独特的路径流入编码器。在自注意力层中，这些路径之间存在依赖关系。而前馈(feed-forward)层没有这些依赖关系。因此在前馈(feed-forward)层时可以并行执行各种路径。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503122203069.png" alt="image-20250312220353012"></p>
 <p>以下图为例，其中的“it”这个句子是指什么呢？它指的是street还是这个animal呢？这对于人类来说是一个简单的问题，但是对于算法则不是。当模型处理这个单词“it”的时候，自注意力机制会允许“it”与“animal”建立联系。随着模型处理输入序列的每个单词，自注意力会关注整个输入序列的所有单词，帮助模型对本单词更好地进行编码。</p>
 <p>如果你熟悉RNN（循环神经网络），回忆一下它是如何维持隐藏层的。RNN会将它已经处理过的前面的所有单词&#x2F;向量的表示与它正在处理的当前单词&#x2F;向量结合起来。而自注意力机制会将所有相关单词的理解融入到我们正在处理的单词中。</p>
 <p>当我们在编码器#5（栈中最上层编码器）中编码“it”这个单词的时，注意力机制的部分会去关注“The Animal”，将它的表示的一部分编入“it”的编码中。</p>
 <p>注意力机制的精髓就体现在这些深浅不一的橙色背景色中。</p>
-<p>为了让大家更好地理解注意力的作用，再举个计算机视觉中的例子，假设我们要对一张图片进行分类，注意力的作用就在于帮助我们指出图片中的哪些区域是值得关注的。</p>
+<p>为了让大家更好地理解注意力的作用，再举个计算机视觉中的例子，假设我们要对一张图片进行分类，注意力的作用就在于帮助我们指出图片中的哪些区域是值得关注的。可以看到经过自注意力机制已经很明显地将兔子的轮廓及其标志性的地方用热力图框选出来了。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503122205935.png" alt="image-20250312220517870"></p>
+<p><strong>编码过程（微观）</strong></p>
+<p>第一步，生成 Q、K、V，辅助计算注意力机制</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503122218105.png" alt="image-20250312221807056"></p>
+<p>通过将X1，X2向量分别与权重矩阵W^Q^, W^K^, W^V^相乘，为每个单词都创建一个查询向量Q，一个键向量K，值向量V。</p>
+<p>第二步，计算当前单词的Q与候选单词的K的点积，得到注意力分数。假设我们在为这个例子中的第一个词“Thinking”计算自注意力向量，我们需要拿输入句子（Thinking Machines）中的每个单词对“Thinking”打分。这些分数决定了在编码单词“Thinking”的过程中有多重视句子的其它部分。这些分数是通过打分单词（所有输入句子的单词）的键向量与“Thinking”的查询向量相点积来计算的。所以如果我们是处理位置最靠前的词的自注意力的话，第一个分数是q1和k1的点积，第二个分数是q1和k2的点积。</p>
+<p>第三步，将上一步结果除以维度的平方根（使梯度更加稳定，这里假设转换为词向量后的维度为64）</p>
+<p>第四步，将上一步结果通过softmax函数转换（softmax的作用是使所有单词的分数归一化，得到的分数都是正值且和为1。这个softmax分数决定了每个单词对编码当下位置（“Thinking”）的贡献。显然，已经在这个位置上的单词将获得最高的softmax分数，但有时关注另一个与当前单词相关的单词也会有帮助。）</p>
+<p>第五步，将候选单词的每个值向量V乘以softmax后的分数。</p>
+<p>第六步，对加权后的值向量V求和，即可得到自注意力层在该位置上的输出（在我们的例子中是对于第一个单词）。得到的输出就可以输入到前馈神经网络中。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503130026008.png" alt="image-20250313002553906"></p>
+<p><strong>核心公式</strong>：<img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503130046166.png" alt="image-20250313004615124"></p>
+<p>通过矩阵运算实现：</p>
+<p>第一步是计算查询矩阵、键矩阵和值矩阵。为此，我们将将输入句子的词嵌入装进矩阵X中，将其乘以我们训练的权重矩阵(WQ ， WK， WV)。</p>
+<p>X矩阵中的每一行对应于输入句子中的一个单词。我们再次看到词嵌入向量 (512，或图中的4个格子)和q&#x2F;k&#x2F;v向量(64，或图中的3个格子)的大小差异。</p>
+<p>最后，由于我们处理的是矩阵，我们可以用一个公式来计算自注意力层的输出。</p>
+<p>到这里，通过矩阵运算实现自注意力的计算就完成了。这时，我们对于输入句子向量，得到一组Z向量，输入到后续的前馈神经网络中。</p>
+<p>但实际情况下，在Transformer中，采用的方式就是多头注意力机制，这里的多头可以理解为不同的QKV（就是在纵向叠加多个注意力层来进行同一个输入并计算，但是权重矩阵的初始化是不同的，因此得到的QKV矩阵也不同，注意力分数也不同）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503130110539.png" alt="image-20250313011014487"></p>
+<p><strong>多头注意力机制</strong></p>
+<p>直观来理解其实就是对于同一个词向量X输入到多个注意力层中进行多次不同的运算，虽然共享同一个输入，但是由于矩阵初始化值的不同会导致其获得不同的QKV矩阵，注意力分数矩阵Z的结果也因此不同。假设这里我们设置了8个注意力头，得到了8个不同的注意力头Z<del>0</del>，…，Z<del>7</del>，我们直接将这8个矩阵进行拼接成一个矩阵Z然后输入到前馈神经网络中。</p>
+<p>原论文中说到进行Multi-head Attention的原因是将模型分为多个头，形成多个子空间，可以让模型去关注不同方面的信息，最后再将各个方面的信息综合起来。其实直观上也可以想到，如果自己设计这样的一个模型，必然也不会只做一次attention，多次attention综合的结果至少能够起到增强模型的作用，也可以类比CNN中同时使用多个卷积核的作用，直观上讲，多头的注意力有助于网络捕捉到更丰富的特征&#x2F;信息。</p>
+<p>通过增加一种叫做“多头”注意力（“multi-headed” attention）的机制，论文进一步完善了自注意力层，并在两方面提高了注意力层的性能：</p>
+<p>1.它扩展了模型专注于不同位置的能力。在上面的例子中，虽然每个编码都在z1中有或多或少的体现，但是它可能被实际的单词本身所支配。如果我们翻译一个句子，比如“The animal didn’t cross the street because it was too tired”，我们会想知道“it”指的是哪个词，这时模型的“多头”注意机制会起到作用。</p>
+<p>2.它给出了注意力层的多个“表示子空间”（representation subspaces）。接下来我们将看到，对于“多头”注意机制，我们有多个查询&#x2F;键&#x2F;值权重矩阵集(Transformer使用八个注意力头，因此我们对于每个编码器&#x2F;解码器有八个矩阵集合)。这些集合中的每一个都是随机初始化的，在训练之后，每个集合都被用来将输入词嵌入(或来自较低编码器&#x2F;解码器的向量)投影到不同的表示子空间中。</p>
+<p>在“多头”注意机制下，我们为每个头保持独立的查询&#x2F;键&#x2F;值权重矩阵，从而产生不同的查询&#x2F;键&#x2F;值矩阵。和之前一样，我们拿X乘以WQ&#x2F;WK&#x2F;WV矩阵来产生查询&#x2F;键&#x2F;值矩阵。</p>
+<p>如果我们做与上述相同的自注意力计算，只需八次不同的权重矩阵运算，我们就会得到八个不同的Z矩阵。这就类似于在卷积神经网络中使用多个不同尺寸的filter提取多种特征。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503130112534.png" alt="image-20250313011242480"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503130120601.png" alt="image-20250313012013546"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503130120098.png" alt="image-20250313012034054"></p>
 
                 
             </div>
@@ -461,7 +515,23 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/transformer/">
+                                    <span class="chip bg-color">transformer</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%AF%8D%E5%B5%8C%E5%85%A5/">
+                                    <span class="chip bg-color">词嵌入</span>
+                                </a>
+                            
+                                <a href="/tags/embeddings/">
+                                    <span class="chip bg-color">embeddings</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -531,13 +601,37 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            FeiZao
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    深度学习
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/transformer/">
+                        <span class="chip bg-color">transformer</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AF%8D%E5%B5%8C%E5%85%A5/">
+                        <span class="chip bg-color">词嵌入</span>
+                    </a>
+                    
+                    <a href="/tags/embeddings/">
+                        <span class="chip bg-color">embeddings</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
