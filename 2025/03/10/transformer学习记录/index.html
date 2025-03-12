@@ -318,14 +318,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    605
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    7 分
                 </div>
                 
 
@@ -360,8 +360,44 @@
 <p>我们可以通过线性变换来进行变换</p>
 <p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102144895.png" alt="image-20250310214406820"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503102144528.png" alt="image-20250310214453461"></p>
+<p><strong>输入</strong> → <strong>线性变换生成Q、K、V</strong> → <strong>拆分多头</strong> → <strong>缩放点积注意力</strong> → <strong>拼接多头结果</strong> → <strong>线性变换输出</strong></p>
 <p>左边是多头注意力机制的架构图，右边是上述的过程。我们首先初始化三个词嵌入矩阵，然后通过三个权重矩阵W^Q,W^K,W^V对输入进来的三个词嵌入矩阵进行线性变换得到Q,K,V</p>
-<p><em>Q</em>&#x3D;<em>X</em>⋅<em>W**Q</em>,<em>K</em>&#x3D;<em>X</em>⋅<em>W**K</em>,<em>V</em>&#x3D;<em>X</em>⋅<em>W**V</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503110222377.png" alt="image-20250311022221286"></p>
+<p><strong>Q、K、V是输入向量经过线性变换后的结果</strong>，而非直接等于词嵌入或权重矩阵。经过这种变换我们可得Q,K,V，然后输入进线性层，Q和K相乘进行一个线性变换，变换完成后输入缩放点积注意力层，在这层中，使用V矩阵对其进行一个打分<img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503110228473.png" alt="image-20250311022854441">，如右图中间所示，初始值为1，经过一次线性变换后得到我们想要的结果，然后再使用softmax函数进行一次缩放以防梯度消失，dk为K的维度（如Apple(0, 1, 2, 3)，那么dk就为4），随后得到一个注意力权重分布，最后用注意力权重对V加权求和，得到当前头的输出<img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503110232530.png" alt="image-20250311023206492">，并将其输出到连接层。“注意力权重”是通过Q和K的点积计算得到的（即 <img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503110224957.png" alt="image-20250311022414926">)。</p>
+<h4 id="1-3-结构详解"><a href="#1-3-结构详解" class="headerlink" title="1.3 结构详解"></a>1.3 结构详解</h4><p><strong>宏观理解网络架构</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503121539309.png" alt="image-20250312153936210"></p>
+<p>transformer网络分为编码器和解码器，以句子翻译为例，当句子输入到网络中，首先经过多层编码器，每一层的编码器输入都是上一层的输出直到最后一层的输出将输入到每一层的解码器中，然后依次类推，最后输出翻译结果。</p>
+<p>将每一层的编码器和解码器结构拆开进一步分析的话，如下图所示。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503121543961.jpeg" alt="img"></p>
+<p>每一个编码器 在结构上都是一样的，但它们的权重参数是不同的。每一个编码器里面，可以分为 2 层</p>
+<ol>
+<li>Self-Attention Layer</li>
+<li>Feed Forward Neural Network（前馈神经网络，缩写为 FFNN）</li>
+</ol>
+<p>同理，解码器也具有这两层，但是这两层中间还插入了一个 Encoder-Decoder Attention 层，这个层能帮助解码器聚焦于输入句子的相关部分（类似于 seq2seq 模型 中的 Attention）。</p>
+<p><strong>具体结构</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503121808683.png" alt="image-20250312180847614"></p>
+<p>编码器部分N个block堆叠组成（自注意+前馈网络），每个block又分为两层：自注意力+残差连接（参考CNN架构）+归一化层&#x2F;前馈神经网络+残差连接+归一化层。每一个block依次向上传递直到最后第N层，将第N层的block输出到解码器的每一层中（参考上述encoder和decoder图）。</p>
+<p>解码器部分中Output Embedding输入是我们已知的句子翻译结果再输入（以句子翻译为例就是假设Iuputs输入为我是学生，那么最后的输出结果为I am a student，那么这里的Output Embedding就是翻译结果），每个block层又分为如上图右边的结构：掩码自注意力层+残差+归一化&#x2F;自注意力层+残差+归一化&#x2F;前馈神经网络+残差+归一化层。这里需要特别注意的是，中间的自注意力层的输入来自编码器最后一层的输出以及来自掩码注意力层的输出共同组合。</p>
+<p>最后解码器的输出会经过一个线性层和softmax函数激活后输出我们词表中所有词的概率，选择概率最大的一个作为我们最后的结果输出。</p>
+<p><strong>词嵌入（Word Embedding）</strong></p>
+<p>我们首先将每个输入单词通过词嵌入算法转换为词向量。在transformer中，通常转换为256 或者 512 维。</p>
+<p>所有的编码器都有一个相同的特点，即它们接收一个向量列表，列表中的每个向量大小特定维度，在Transformer中是512维。词嵌入过程只发生在最底层的编码器中。在底层（最开始）编码器中它就是词向量，但是在其他编码器中，它就是下一层编码器的输出（也是一个向量列表）。</p>
+<p>向量列表大小是我们可以设置的超参数：一般是我们训练集中最长句子的长度。</p>
+<p><strong>位置编码（Positional Encoding）</strong></p>
+<p>首先我们回顾RNN，RNN隐藏层的每一次计算都会包含上一时刻的信息，而transformer并没有这个结构，因此我们需要用到位置编码来告诉网络当前这个单词在整个句子中的位置，他通过和input embedding相加来得到一个同样为512维度的向量作为编码器的输入。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503122124562.png" alt="image-20250312212410515"></p>
+<p>pos指当前词在整个句子中的位置，范围是0到整个句子的长度（左闭右开）。i指位置编码的维度，范围是0到2&#x2F;dmodel（左闭右开，通常为512维）。</p>
+<p>当维数为偶数时输入到sin函数，维数为奇数时输入到cos函数。</p>
+<p><strong>编码过程</strong></p>
+<p>Transformer的一个核心特性，在这里输入序列中每个位置的单词都有自己独特的路径流入编码器。在自注意力层中，这些路径之间存在依赖关系。而前馈(feed-forward)层没有这些依赖关系。因此在前馈(feed-forward)层时可以并行执行各种路径。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503122203069.png" alt="image-20250312220353012"></p>
+<p>以下图为例，其中的“it”这个句子是指什么呢？它指的是street还是这个animal呢？这对于人类来说是一个简单的问题，但是对于算法则不是。当模型处理这个单词“it”的时候，自注意力机制会允许“it”与“animal”建立联系。随着模型处理输入序列的每个单词，自注意力会关注整个输入序列的所有单词，帮助模型对本单词更好地进行编码。</p>
+<p>如果你熟悉RNN（循环神经网络），回忆一下它是如何维持隐藏层的。RNN会将它已经处理过的前面的所有单词&#x2F;向量的表示与它正在处理的当前单词&#x2F;向量结合起来。而自注意力机制会将所有相关单词的理解融入到我们正在处理的单词中。</p>
+<p>当我们在编码器#5（栈中最上层编码器）中编码“it”这个单词的时，注意力机制的部分会去关注“The Animal”，将它的表示的一部分编入“it”的编码中。</p>
+<p>注意力机制的精髓就体现在这些深浅不一的橙色背景色中。</p>
+<p>为了让大家更好地理解注意力的作用，再举个计算机视觉中的例子，假设我们要对一张图片进行分类，注意力的作用就在于帮助我们指出图片中的哪些区域是值得关注的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503122205935.png" alt="image-20250312220517870"></p>
 
                 
             </div>
