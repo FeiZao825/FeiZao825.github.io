@@ -1,0 +1,1700 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="特征工程, 博客搭建,个人学习经验,深度学习,嵌入式等">
+    <meta name="description" content="特征工程引言想象一下，你和朋友去看电影。电影还没结束，你朋友就说：“这电影肯定五星！”而你一脸懵：“怎么看出来的？”他说：“导演是大咖，演员演技在线，剧情节奏也好。”你朋友其实就是在“特征工程”——他从电影里挑出关键的“特征”，帮他判断电影">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>特征工程 | 大概是个博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">大概是个博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">大概是个博客</div>
+        <div class="logo-desc">
+            
+            用于记录个人的一些学习经验思路、笔记分享
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">特征工程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-03-25
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    9.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    36 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h1><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>想象一下，你和朋友去看电影。电影还没结束，你朋友就说：“这电影肯定五星！”而你一脸懵：“怎么看出来的？”他说：“导演是大咖，演员演技在线，剧情节奏也好。”你朋友其实就是在“特征工程”——他从电影里挑出关键的“特征”，帮他判断电影好坏。</p>
+<p>它就像是给模型“做饭”：从一堆杂乱的原始食材（数据）中，挑出有用的部分，洗干净、切好、调味，最后做成一道模型爱吃的“大餐”（特征）。说得简单点，特征工程就是通过数学和统计的方法，把原始数据变成模型能更好理解和学习的形式。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/FeiZao825/picture-bed@main/img/202503250049927.png" alt="image-20250325004940861"></p>
+<p><strong>Memory-Based</strong>（基于记忆算法）：红色圆圈。</p>
+<p><strong>Winnow</strong>：蓝色交叉线。</p>
+<p><strong>Perceptron</strong>（感知机）：绿色三角形。</p>
+<p><strong>Naïve Bayes</strong>（朴素贝叶斯）：蓝色方框。</p>
+<h2 id="1-特征提取"><a href="#1-特征提取" class="headerlink" title="1. 特征提取"></a>1. 特征提取</h2><p>特征提取是从原始数据中“创造”出一组新的、更具信息量的特征的过程。简单来说，就是把杂乱的原始数据“浓缩”成更有用的东西，让模型更容易理解。</p>
+<p><strong>通俗解释</strong>：<br>想象你在煮汤，原始数据是一堆食材（土豆、胡萝卜、肉），特征提取就像把这些食材熬成一碗浓汤，只保留精华部分。</p>
+<p><strong>目的</strong>：</p>
+<ul>
+<li>把复杂或高维的数据（比如图片、文本）变成模型能处理的数值特征。</li>
+<li>减少数据维度，降低计算复杂度。</li>
+<li>挖掘数据的深层信息。</li>
+</ul>
+<p><strong>常见方法</strong>：</p>
+<ul>
+<li><strong>主成分分析（PCA）</strong>：把多个相关特征“压缩”成几个新特征，保留主要信息。</li>
+<li><strong>TF-IDF</strong>：从文本中提取词的重要性，转化为数值。</li>
+<li><strong>图像边缘检测</strong>：从图片像素中提取边缘或纹理特征。</li>
+</ul>
+<p><strong>例子</strong>：<br>假设你有一堆图片（原始数据是像素点），特征提取可以用算法找出图片里的边缘或颜色分布，这些新特征比原始像素更能帮模型识别内容。</p>
+<h2 id="2-特征选择"><a href="#2-特征选择" class="headerlink" title="2. 特征选择"></a>2. 特征选择</h2><p><strong>定义</strong>：<br>特征选择是从已有特征中“挑选”出一部分最有用的子集，不改变特征本身，只是决定留下哪些、丢掉哪些。</p>
+<p><strong>通俗解释</strong>：<br>还是煮汤的比喻，特征选择不是熬汤，而是从一堆食材里挑出最有营养的（比如肉和胡萝卜），扔掉没用的（比如烂叶子）。</p>
+<p><strong>目的</strong>：</p>
+<ul>
+<li>去掉无关、冗余或噪声特征，提升模型准确性。</li>
+<li>减少特征数量，加快训练速度。</li>
+<li>提高模型的可解释性。</li>
+</ul>
+<p><strong>常见方法</strong>：</p>
+<ul>
+<li><strong>过滤法</strong>：用统计指标（如相关系数）挑特征。</li>
+<li><strong>包装法</strong>：用模型测试哪个特征组合最好（比如递归特征消除）。</li>
+<li><strong>嵌入法</strong>：在训练中自动选特征（比如LASSO回归）。</li>
+</ul>
+<p><strong>例子</strong>：<br>预测房价时，数据有房屋面积、房间数、房子颜色等特征。特征选择发现面积和房间数对房价影响大，颜色没啥用，就扔掉颜色。</p>
+<h2 id="3-特征构建"><a href="#3-特征构建" class="headerlink" title="3. 特征构建"></a>3. 特征构建</h2><h3 id="1-归一化和标准化"><a href="#1-归一化和标准化" class="headerlink" title="1. 归一化和标准化"></a>1. 归一化和标准化</h3><h4 id="1-归一化（最大-最小标准化）"><a href="#1-归一化（最大-最小标准化）" class="headerlink" title="1. 归一化（最大-最小标准化）"></a>1. 归一化（最大-最小标准化）</h4><p><strong>什么是归一化？</strong><br>归一化就像把一堆大小不一的数字“挤”进一个统一的范围，通常是0到1。想象你有一堆考试成绩，有的满分是100，有的满分是50，归一化能让它们看起来都像是一个标准的分数范围，这样比较起来就公平了。</p>
+<p><strong>数学公式：</strong><br>$x^* &#x3D; \frac{x - x_{\text{min}}}{x_{\text{max}} - x_{\text{min}}}$</p>
+<ul>
+<li>$x$ 是原始数据的值。</li>
+<li>$x_{\text{min}}$ 是所有数据中最小的值。</li>
+<li>$x_{\text{max}}$ 是所有数据中最大的值。</li>
+<li>$x^*$ 是标准化后的新值。</li>
+</ul>
+<p><strong>怎么理解这个公式？</strong></p>
+<ul>
+<li>减去 $x_{\text{min}}$：把最小值移到0。</li>
+<li>除以 $x_{\text{max}} - x_{\text{min}}$：把整个范围压缩到0到1之间。</li>
+<li>结果：最小值变成0，最大值变成1，其他值按比例落在中间。</li>
+</ul>
+<p><strong>举个例子：</strong><br>假设你的数据是 <code>[10, 20, 30, 40, 50]</code>：</p>
+<ul>
+<li>$x_{\text{min}} &#x3D; 10$, $x_{\text{max}} &#x3D; 50$。</li>
+<li>对于 $x &#x3D; 20$：<br>$x^* &#x3D; \frac{20 - 10}{50 - 10} &#x3D; \frac{10}{40} &#x3D; 0.25$</li>
+<li>结果：<code>[0, 0.25, 0.5, 0.75, 1]</code>。</li>
+</ul>
+<p><strong>图片里说了什么？</strong></p>
+<ul>
+<li>归一化的目标是让不同特征（比如身高、体重）在同一个量纲下，避免因为数值范围差异太大而影响模型。</li>
+<li>但它可能会改变数据的分布形状，比如原来分布很“扁平”的数据可能被“拉长”或“压缩”。</li>
+</ul>
+<p><strong>什么时候用？</strong><br>当你的数据范围差别很大（比如一个特征是0-1000，另一个是0-1），或者模型（像神经网络）对数据尺度敏感时，归一化很管用。</p>
+<h4 id="2-Z-Score标准化"><a href="#2-Z-Score标准化" class="headerlink" title="2. Z-Score标准化"></a>2. Z-Score标准化</h4><p><strong>什么是Z-Score标准化？</strong><br>Z-Score标准化是把数据“拉平”，让它围绕平均值分布，看起来更“标准”。它不会把数据硬塞进0到1，而是让数据的平均值变成0，标准差变成1。就像给每个数据打分，告诉你它离平均值有多远。</p>
+<p><strong>数学公式：</strong><br>$x^* &#x3D; \frac{x - \mu}{\sigma}$</p>
+<ul>
+<li>$x$ 是原始数据的值。</li>
+<li>$\mu$ 是数据的平均值（均值）。</li>
+<li>$\sigma$ 是数据的标准差（衡量数据分散程度）。</li>
+<li>$x^*$ 是标准化后的新值。</li>
+</ul>
+<p><strong>怎么理解这个公式？</strong></p>
+<ul>
+<li>减去 $\mu$：把数据中心移到0。</li>
+<li>除以 $\sigma$：把数据的分散程度调整到1。</li>
+<li>结果：数据变成“标准正态分布”的样子，均值是0，标准差是1。</li>
+</ul>
+<p><strong>举个例子：</strong><br>假设你的数据是 <code>[10, 20, 30, 40, 50]</code>：</p>
+<ul>
+<li>均值 $\mu &#x3D; (10 + 20 + 30 + 40 + 50) &#x2F; 5 &#x3D; 30$。</li>
+<li>标准差 $\sigma \approx 15.81$（通过计算得来）。</li>
+<li>对于 $x &#x3D; 20$：<br>$x^* &#x3D; \frac{20 - 30}{15.81} &#x3D; \frac{-10}{15.81} \approx -0.63$</li>
+<li>结果：<code>[-1.26, -0.63, 0, 0.63, 1.26]</code>。</li>
+</ul>
+<p><strong>图片里说了什么？</strong></p>
+<ul>
+<li>Z-Score标准化让数据均值为0，标准差为1，方便在不同特征间比较。</li>
+<li>它不会改变数据的分布形状，只是移动和缩放了一下（比如原来是正态分布的，还是正态分布）。</li>
+</ul>
+<p><strong>什么时候用？</strong><br>当你的数据有明显的大小差异，或者模型（像线性回归）假设数据是标准化的，Z-Score就很合适。它对异常值也更稳健。</p>
+<h4 id="3-两者的区别和联系"><a href="#3-两者的区别和联系" class="headerlink" title="3. 两者的区别和联系"></a>3. 两者的区别和联系</h4><table>
+<thead>
+<tr>
+<th><strong>方面</strong></th>
+<th><strong>归一化</strong></th>
+<th><strong>Z-Score标准化</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>目标范围</strong></td>
+<td>数据缩放到[0,1]</td>
+<td>均值为0，标准差为1</td>
+</tr>
+<tr>
+<td><strong>公式</strong></td>
+<td>$\frac{x - x_{\text{min}}}{x_{\text{max}} - x_{\text{min}}}$</td>
+<td>$\frac{x - \mu}{\sigma}$</td>
+</tr>
+<tr>
+<td><strong>分布变化</strong></td>
+<td>可能改变分布形状（扩展&#x2F;压缩）</td>
+<td>不改变分布形状</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>需要统一范围的模型</td>
+<td>需要比较距离或正态化的模型</td>
+</tr>
+</tbody></table>
+<p><strong>图片里的观察：</strong></p>
+<ul>
+<li>归一化像“强行统一规格”，可能会让数据分布变形。</li>
+<li>Z-Score像“调整视角”，保持数据原本的样子，只是换了个标准来看。</li>
+</ul>
+<hr>
+<h4 id="4-为什么要做数据标准化？"><a href="#4-为什么要做数据标准化？" class="headerlink" title="4. 为什么要做数据标准化？"></a>4. 为什么要做数据标准化？</h4><p>机器学习模型就像挑食的孩子，如果数据尺度差别太大（比如一个特征是0-1000，另一个是0-1），模型可能会“偏心”，只关注数值大的特征。标准化通过归一化或Z-Score，把所有特征拉到同一水平线上，让模型公平对待每个特征，提升预测效果。</p>
+<p><strong>实际意义举例：</strong></p>
+<ul>
+<li>预测房价时，面积（平米）和房间数（个）单位不同，归一化或Z-Score能让它们平等竞争。</li>
+<li>在图像处理中，像素值（0-255）如果不标准化，可能让模型训练变慢或不稳定。</li>
+</ul>
+<h3 id="2-特征二值化"><a href="#2-特征二值化" class="headerlink" title="2. 特征二值化"></a>2. 特征二值化</h3><p>目的是通过对数据进行处理，将数值型特征转化为二进制特征（0或1），从而优化数据以提升模型性能。</p>
+<hr>
+<h4 id="2-什么是特征二值化？"><a href="#2-什么是特征二值化？" class="headerlink" title="2. 什么是特征二值化？"></a>2. 什么是特征二值化？</h4><p>特征二值化是一种将数值型数据转换为二进制数据（0或1）的技术。具体来说：</p>
+<ul>
+<li>设定一个<strong>阈值</strong>（threshold）。</li>
+<li>如果特征值<strong>大于或等于阈值</strong>，就标记为<strong>1</strong>。</li>
+<li>如果特征值<strong>小于阈值</strong>，就标记为<strong>0</strong>。</li>
+</ul>
+<p><strong>通俗解释</strong>：<br>就像考试及格线是60分，成绩≥60分的标记为“及格”（1），&lt;60分的标记为“不及格”（0）。这里的60就是阈值。</p>
+<p><strong>目的</strong>：</p>
+<ul>
+<li>简化数据：将复杂的数值转化为简单的二进制形式。</li>
+<li>突出特征的有无：某些场景下，特征是否超过某个值比具体数值更重要。</li>
+</ul>
+<hr>
+<h4 id="3-图片中的代码示例"><a href="#3-图片中的代码示例" class="headerlink" title="3. 图片中的代码示例"></a>3. 图片中的代码示例</h4><p><strong>代码解释</strong>：</p>
+<ul>
+<li><p>**<code>from sklearn.preprocessing import Binarizer</code>**：从Scikit-learn的预处理模块中导入<code>Binarizer</code>类。</p>
+</li>
+<li><p>**<code>Binarizer(threshold=3)</code>**：创建一个二值化工具，设置阈值为3。</p>
+</li>
+<li><p><code>.fit_transform(iris.data)</code></p>
+<p>：将这个二值化操作应用到Iris数据集</p>
+<ul>
+<li>Iris数据集包含花瓣和花萼的长度&#x2F;宽度等特征，单位是厘米。</li>
+<li>对于每个特征值：≥3的变成1，&lt;3的变成0。</li>
+</ul>
+</li>
+</ul>
+<p><strong>举个例子</strong>：<br>假设Iris数据集中的某个特征值是 <code>[1.5, 3.2, 4.0, 2.8]</code>，阈值设为3：</p>
+<ul>
+<li>1.5 &lt; 3 → 0</li>
+<li>3.2 ≥ 3 → 1</li>
+<li>4.0 ≥ 3 → 1</li>
+<li>2.8 &lt; 3 → 0<br>结果：<code>[0, 1, 1, 0]</code>。</li>
+</ul>
+<p><strong>注意</strong>：<br>图片中的阈值3只是一个示例。实际中，Iris数据集的特征值大多大于3（比如花瓣长度通常在1-6厘米之间），所以阈值3可能不是最优选择。阈值应根据具体问题和数据分布来设定。</p>
+<hr>
+<h4 id="4-特征二值化的应用场景"><a href="#4-特征二值化的应用场景" class="headerlink" title="4. 特征二值化的应用场景"></a>4. 特征二值化的应用场景</h4><ul>
+<li><strong>简化模型</strong>：在某些情况下，模型不需要精确的数值，只需要知道特征是否超过某个关键点。比如在垃圾邮件检测中，一个词的出现次数超过某个值（比如3次）可能就足以判断它是重要的，而不需要具体次数。</li>
+<li><strong>减少计算复杂度</strong>：二值化后的0和1更简单，模型训练可能更快。</li>
+<li><strong>突出关键信息</strong>：比如在用户行为分析中，登录次数≥5次标记为“活跃”（1），&lt;5次标记为“不活跃”（0）。</li>
+</ul>
+<hr>
+<h4 id="5-特征二值化的优缺点"><a href="#5-特征二值化的优缺点" class="headerlink" title="5. 特征二值化的优缺点"></a>5. 特征二值化的优缺点</h4><p><strong>优点</strong>：</p>
+<ul>
+<li>数据简化，易于处理。</li>
+<li>可以突出特征是否达到某个阈值，适合某些分类问题。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>信息损失：把连续值变成0或1，丢掉了原始数据的细节。</li>
+<li>阈值选择关键：选得不合适，可能影响模型效果。</li>
+</ul>
+<h3 id="3-定性特征哑编码"><a href="#3-定性特征哑编码" class="headerlink" title="3. 定性特征哑编码"></a>3. <strong>定性特征哑编码</strong></h3><p><strong>定性特征哑编码（也称为独热编码，One-Hot Encoding）</strong>。它包含了一段Python代码，演示了如何使用Scikit-learn库中的<code>OneHotEncoder</code>类对数据进行哑编码。下面是对图片内容的详细解释，帮助你理解它的含义和作用。</p>
+<hr>
+<h4 id="1-图片的主题和文本"><a href="#1-图片的主题和文本" class="headerlink" title="1. 图片的主题和文本"></a>1. 图片的主题和文本</h4><ul>
+<li><p>标题</p>
+<p>：定性特征哑编码</p>
+<ul>
+<li>这表明图片的重点是介绍一种将定性（类别型）特征转化为数值形式的技术。</li>
+</ul>
+</li>
+<li><p>文本</p>
+<p>：使用preprocessing库的OneHotEncoder类对数据进行哑编码的代码如下：</p>
+<ul>
+<li>这部分提示我们，接下来会展示一段具体的代码示例，使用的工具是Scikit-learn中的<code>OneHotEncoder</code>类。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="2-代码示例"><a href="#2-代码示例" class="headerlink" title="2. 代码示例"></a>2. 代码示例</h4><p><strong>代码逐步拆解</strong>：</p>
+<ul>
+<li><p><strong><code>from sklearn.preprocessing import OneHotEncoder</code></strong></p>
+<ul>
+<li>从Scikit-learn的<code>preprocessing</code>模块中导入<code>OneHotEncoder</code>类。这个类是专门用来做独热编码的工具。</li>
+</ul>
+</li>
+<li><p><strong><code>iris.target</code></strong></p>
+<ul>
+<li><pre><code>iris.target
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    是Iris数据集中的目标值，也就是花的类别标签。Iris数据集是一个经典的机器学习数据集，包含三种花的类别：</span><br><span class="line"></span><br><span class="line">    - 0：Setosa</span><br><span class="line">    - 1：Versicolor</span><br><span class="line">    - 2：Virginica</span><br><span class="line"></span><br><span class="line">  - 原始形式是一个一维数组，例如 `[0, 1, 2, 0, 1, ...]`，表示150个样本的类别。</span><br><span class="line"></span><br><span class="line">- **`.reshape((-1,1))`**</span><br><span class="line"></span><br><span class="line">  - `OneHotEncoder`要求输入数据是二维的，但`iris.target`是一维数组。为了适配要求，这里用`reshape((-1,1))`将其变成一个二维数组（列向量）。</span><br><span class="line">  - `-1`表示自动计算行数（这里是150行），`1`表示1列。</span><br><span class="line">  - 转换后，数据从 `[0, 1, 2]` 变成 `[[0], [1], [2]]`。</span><br><span class="line"></span><br><span class="line">- **`OneHotEncoder().fit_transform()`**</span><br><span class="line"></span><br><span class="line">  - `OneHotEncoder()`：创建一个独热编码的对象。</span><br><span class="line">  - `.fit_transform()`：对数据进行拟合（fit）和转换（transform），一步完成编码过程。</span><br><span class="line">  - 输出是哑编码后的结果，通常是一个稀疏矩阵（sparse matrix），表示每个样本的类别用二进制向量表示。</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">#### 3. 哑编码（独热编码）的原理</span><br><span class="line"></span><br><span class="line">**什么是独热编码？**</span><br><span class="line">独热编码是一种将类别型数据（比如“红”、“蓝”、“绿”）转化为数值形式的方法。它的核心思路是：</span><br><span class="line"></span><br><span class="line">- 为每个类别创建一个单独的二进制特征（列）。</span><br><span class="line">- 如果样本属于某个类别，该列值为1，其他列值为0。</span><br><span class="line"></span><br><span class="line">**举个例子**：</span><br><span class="line">Iris数据集的目标值有三种类别：0（Setosa）、1（Versicolor）、2（Virginica）。独热编码后：</span><br><span class="line"></span><br><span class="line">- 类别0 → `[1, 0, 0]`</span><br><span class="line">- 类别1 → `[0, 1, 0]`</span><br><span class="line">- 类别2 → `[0, 0, 1]`</span><br><span class="line"></span><br><span class="line">编码后，每个样本的类别被表示为一个三维向量，清楚地告诉模型“这是哪一类”。</span><br><span class="line"></span><br><span class="line">**代码的实际效果**：</span><br><span class="line"></span><br><span class="line">- 输入：`iris.target`，一个包含150个样本类别（0, 1, 2）的一维数组。</span><br><span class="line"></span><br><span class="line">- 处理：通过`reshape((-1,1))`变成150行1列的二维数组，再用`OneHotEncoder`编码。</span><br><span class="line"></span><br><span class="line">- 输出：一个150行3列的稀疏矩阵，每行是一个样本的独热编码向量。例如：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+lua复制原数据: [0, 1, 2]
+编码后:
+[[1, 0, 0],
+ [0, 1, 0],
+ [0, 0, 1]]
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">#### 4. 为什么要做独热编码？</span><br><span class="line"></span><br><span class="line">- **模型需求**：机器学习模型（比如线性回归、神经网络）只能处理数值数据，而不能直接理解类别型数据（比如“Setosa”）。独热编码把类别变成数字，让模型能用。</span><br><span class="line">- **避免误解**：如果直接把类别编码为0、1、2，模型可能会认为2比1大，1比0大，误以为类别间有大小关系。独热编码用二进制向量避免了这种问题。</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">#### 5. 应用场景和注意事项</span><br><span class="line"></span><br><span class="line">**应用场景**：</span><br><span class="line"></span><br><span class="line">- **分类任务**：像Iris数据集这样，目标值是类别型的，需要独热编码。</span><br><span class="line">- **特征处理**：数据中有类别型特征（比如性别、颜色），需要转为数值形式。</span><br><span class="line"></span><br><span class="line">**注意事项**：</span><br><span class="line"></span><br><span class="line">- **维度增加**：如果类别很多（比如100种颜色），独热编码会生成100列，增加数据维度，可能导致计算负担重。</span><br><span class="line">- **稀疏矩阵**：`OneHotEncoder`默认返回稀疏矩阵格式（节省内存），实际使用时可能需要转成普通数组（用`.toarray()`）。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 4. 分箱</span><br><span class="line"></span><br><span class="line">给出了两种常见的分箱方法：**按区间分箱**和**按数量分箱**。下面是对图片内容的详细解释，帮助你理解它的含义和应用。</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">#### 1. 图片的主题</span><br><span class="line"></span><br><span class="line">图片的核心主题是**数据分箱**，这是一种数据预处理技术，主要用于将连续型变量（比如成绩、年龄等）转化为离散的类别型特征。文字说明：</span><br><span class="line"></span><br><span class="line">&gt; 一般在建立分类模型时，需要对连续变量离散化，特别离散化后，模型会更稳定，降低了模型过拟合的风险。</span><br><span class="line"></span><br><span class="line">**为什么要做分箱？**</span><br><span class="line"></span><br><span class="line">- **模型稳定性**：离散化后的特征可以减少数据中的噪声影响，使模型更稳健。</span><br><span class="line">- **降低过拟合**：将连续值分组后，模型不会过于关注具体的数值差异，从而提高泛化能力。</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">#### 2. 数据示例</span><br><span class="line"></span><br><span class="line">图片中给出了一个具体的连续型数据——学生的成绩列表：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>csharp</p>
+<p>复制<br>[63, 64, 88, 71, 42, 60, 99, 70, 32, 88, 34, 69, 83, 52, 66, 92, 82, 58, 66, 41]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这个列表包含20个成绩，范围从32到99。我们将通过两种分箱方法对它进行处理。</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">#### 3. 分箱方法一：按区间分箱（使用 `pd.cut`）</span><br><span class="line"></span><br><span class="line">**什么是按区间分箱？**</span><br><span class="line">这种方法是手动设定分箱的边界（区间），然后将数据划分到这些区间中。就像给成绩划分等级：不及格（0-59）、及格（60-70）、良好（71-80）等。</span><br><span class="line"></span><br><span class="line">**代码示例：**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>python复制bins &#x3D; [0, 59, 70, 80, 90, 100]<br>score_cat &#x3D; pd.cut(score_list, bins)<br>print(pd.value_counts(score_cat))</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- **`bins`**：定义了分箱的边界点：[0, 59, 70, 80, 90, 100]，表示5个区间：(0-59], (59-70], (70-80], (80-90], (90-100]。</span><br><span class="line">- **`pd.cut`**：将成绩列表按这些区间划分。</span><br><span class="line">- **`pd.value_counts`**：统计每个区间内的数据数量。</span><br><span class="line"></span><br><span class="line">**输出结果：**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>复制(59, 70]    7<br>(0, 59]     6<br>(80, 90]    4<br>(90, 100]   2<br>(70, 80]    1  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**解释输出：**</span><br><span class="line"></span><br><span class="line">- **(59, 70]**：7个成绩在这个区间，比如63、64、60等。</span><br><span class="line">- **(0, 59]**：6个成绩在这个区间，比如42、32、34等。</span><br><span class="line">- **(80, 90]**：4个成绩在这个区间，比如88、88、83、82。</span><br><span class="line">- **(90, 100]**：2个成绩在这个区间，比如99、92。</span><br><span class="line">- **(70, 80]**：1个成绩在这个区间，比如71。</span><br><span class="line"></span><br><span class="line">**特点：**</span><br><span class="line"></span><br><span class="line">- 区间宽度可以自定义（比如0-59是59个单位，59-70是11个单位），适合根据业务需求（如成绩等级）划分。</span><br><span class="line">- 每个区间的数量可能不均匀，比如(59, 70]有7个数据，而(70, 80]只有1个。</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">#### 4. 分箱方法二：按数量分箱（使用 `pd.qcut`）</span><br><span class="line"></span><br><span class="line">**什么是按数量分箱？**</span><br><span class="line">这种方法是自动将数据按数量均分成若干份（等频分箱），每个区间包含相同数量的数据点。就像把学生按成绩高低分成5个小组，每组人数一样。</span><br><span class="line"></span><br><span class="line">**代码示例：**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>python复制score_cat &#x3D; pd.qcut(score_list, 5)<br>print(pd.value_counts(score_cat))</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- **`pd.qcut`**：将成绩列表分成5个区间，每个区间尽量包含相同数量的数据（这里是20个数据，分成5份，每份4个）。</span><br><span class="line">- **`5`**：指定分成5个区间。</span><br><span class="line"></span><br><span class="line">**输出结果：**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>复制(31.999, 50.0]    4<br>(50.0, 63.6]      4<br>(63.6, 69.4]      4<br>(69.4, 84.0]      4<br>(84.0, 99.0]      4  </p>
+<pre><code>
+**解释输出：**
+
+- **(31.999, 50.0]**：包含4个最低的成绩，比如32、34、42、41。
+- **(50.0, 63.6]**：包含接下来的4个成绩，比如52、58、60、63。
+- **(63.6, 69.4]**：包含中间的4个成绩，比如64、66、66、69。
+- **(69.4, 84.0]**：包含较高的4个成绩，比如70、71、82、83。
+- **(84.0, 99.0]**：包含最高的4个成绩，比如88、88、92、99。
+
+**特点：**
+
+- 每个区间的数据量相等（这里都是4个），适合数据分布不均匀时，确保每组都有代表性。
+- 区间宽度可能不同，比如(31.999, 50.0]跨度18，而(63.6, 69.4]只有5.8。
+
+------
+
+#### 5. 两种方法的对比
+
+| **方面**     | **按区间分箱 (`pd.cut`)**    | **按数量分箱 (`pd.qcut`)** |
+| ------------ | ---------------------------- | -------------------------- |
+| **划分依据** | 手动设定的固定区间           | 自动按数据量均分           |
+| **区间数量** | 不一定相等（比如7 vs 1）     | 相等（这里都是4）          |
+| **区间宽度** | 可自定义，可能不均           | 自动调整，可能不均         |
+| **适用场景** | 有明确业务规则（如成绩等级） | 数据分布未知，需等频分析   |
+
+------
+
+#### 6. 分箱的意义
+
+- **离散化**：将连续的成绩（32到99）变成类别（比如“低分”、“中分”、“高分”），方便分类模型处理。
+- **捕捉模式**：分组后，模型能更容易发现成绩分布的规律，而不是纠结于具体数值。
+- **实际应用**：比如在信用评分中，把收入分箱成“低收入”、“中等收入”、“高收入”，帮助模型预测违约风险。
+
+------
+
+#### 7. 总结
+
+这张图片通过一个成绩数据集，展示了数据分箱的两种方法：
+
+- **按区间分箱 (`pd.cut`)**：根据手动设定的边界划分，适合有明确规则的场景。
+- **按数量分箱 (`pd.qcut`)**：自动按数量均分，适合数据分布不明的场景。
+
+
+
+### 5. 聚合特征构造
+
+#### 1. 什么是聚合特征构造？
+
+**定义**：
+聚合特征构造是一种通过对多个特征进行**分组聚合**来创建新特征的方法。这些特征通常来自同一张表格，或者通过多张表格的联接（JOIN操作）得到的联合数据集。
+
+**通俗解释**：
+想象你有一张记录顾客购买情况的表格，里面有顾客ID、购买日期和购买金额等信息。聚合特征构造就像是按顾客ID把数据“打包”，然后算出每个顾客的平均购买金额、最高金额等统计数据，这些统计数据就是新的特征。
+
+**图片中的描述**：
+
+- “聚合特征构造主要通过对多个特征的分组聚合实现，这些特征通常来自同一张表或者多张表的联立。”
+  - 这说明聚合特征构造的核心是对数据进行分组，并从分组中提取有用的信息。
+
+------
+
+#### 2. 聚合特征构造的实现方式
+
+**步骤**：
+聚合特征构造通常基于**一对多的关联**（One-to-Many Relationship），具体分为两步：
+
+1. **分组**：根据某个键（比如顾客ID）将数据分成若干组。
+2. **计算统计量**：对每组数据计算一些统计指标，生成新特征。
+
+**通俗例子**：
+假设你有一张订单表：
+
+| 顾客ID | 订单日期   | 订单金额 |
+| ------ | ---------- | -------- |
+| A      | 2023-01-01 | 100      |
+| A      | 2023-02-01 | 200      |
+| B      | 2023-01-15 | 150      |
+
+- **一对多关联**：顾客A有2条订单记录，顾客B有1条，体现了一（顾客）对多（订单）的关系。
+
+- **分组**：按顾客ID分组，A组包含金额[100, 200]，B组包含金额[150]。
+
+- 计算统计量
+
+  ：
+
+  - A的平均金额 = (100 + 200) / 2 = 150
+  - A的最大金额 = 200
+  - B的平均金额 = 150
+
+- **新特征**：生成一张新表：
+
+| 顾客ID | 平均金额 | 最大金额 |
+| ------ | -------- | -------- |
+| A      | 150      | 200      |
+| B      | 150      | 150      |
+
+**图片中的描述**：
+
+- “聚合特征构造使用一对多的关联来对观测值分组，然后计算统计量。”
+  - 这清晰地概括了分组和统计的过程。
+
+------
+
+#### 3. 常见的统计量
+
+图片列举了一些常见的分组统计量，这些统计量可以作为新特征，用于描述数据的特性：
+
+- **中位数（Median）**：组内数据的中间值，比如A组[100, 200]的中位数是150。
+- **算术平均数（Mean）**：组内数据的平均值，比如A组的平均金额是150。
+- **众数（Mode）**：组内出现最频繁的值（如果数据量少，可能不适用）。
+- **最大值（Max）**：组内最大的值，比如A组的最大金额是200。
+- **最小值（Min）**：组内最小的值，比如A组的最小金额是100。
+- **标准差（Standard Deviation）**：衡量组内数据的离散程度，反映波动大小。
+- **方差（Variance）**：类似标准差，衡量数据的波动情况。
+- **频数（Count）**：组内记录的数量，比如A组有2条记录，频数是2。
+
+**实际应用**：
+
+- 在电商中，可以用“平均购买金额”反映顾客的消费能力，用“购买频数”反映活跃度。
+- 在金融中，可以用“交易金额的标准差”判断用户的消费稳定性。
+
+------
+
+#### 4. 聚合特征构造的意义
+
+- **丰富特征**：从原始数据中挖掘更多信息，让模型能捕捉到更深层次的模式。
+- **降维**：把多条记录汇总成几个统计量，减少数据量，提高计算效率。
+- **捕捉趋势**：比如通过“最大金额”发现高端消费行为，通过“频数”发现用户忠诚度。
+
+------
+
+#### 5. 总结
+
+这张图片简洁地介绍了**聚合特征构造**的概念和实现方式：
+
+- **定义**：通过分组聚合从数据中创建新特征。
+- **方法**：利用一对多关联分组，然后计算统计量。
+- **统计量**：包括中位数、平均数、众数、最大值、最小值、标准差、方差和频数等。
+- **价值**：提升模型性能，增强数据表达能力。
+
+
+
+### 6. PCA
+
+PCA 就像给数据找一个“最佳视角”。想象你有一堆点分布在三维空间（比如房屋的面积、房间数、楼层数），这些点散乱得像天上的星星。PCA 能找到一条线或一个平面，把这些点“投影”过去，让你用更少的维度（比如从3D变2D）看清楚它们的大致分布。
+
+**核心目标**：
+
+- 减少特征数量（降维）。
+- 保留数据的主要信息（变化最大的部分）。
+
+那它是怎么做到的呢？下面是 PCA 的数学实现步骤，用生活化的例子带你走一遍。
+
+------
+
+#### PCA 的数学实现步骤
+
+##### **步骤 1：把数据“搬到原点”——中心化处理**
+
+**做什么？**
+我们先让数据的平均值变成0。怎么做呢？对每个特征（比如面积、房间数），算出它的平均值，然后从每个数据点里减掉这个平均值。
+
+**数学公式：**
+$X_&#123;\text&#123;centered&#125;&#125; = X - \mu$
+
+- $X$ 是原始数据（比如一个表格，每行是一个房子，每列是一个特征）。
+- $\mu$ 是每个特征的平均值（比如所有房子的平均面积）。
+- $X_&#123;\text&#123;centered&#125;&#125;$ 是中心化后的数据。
+
+**举个例子：**
+假设有3个房子的面积数据：
+
+- 原始数据：`[1500, 1800, 2100]`
+- 平均值：$\mu = (1500 + 1800 + 2100) / 3 = 1800$
+- 中心化后：`[1500-1800, 1800-1800, 2100-1800] = [-300, 0, 300]`
+
+**为什么这样做？**
+把数据移到原点（均值为0），就像把散乱的点都挪到坐标系中间，方便我们找它们变化的方向。
+
+------
+
+##### **步骤 2：看看数据怎么“散”——计算协方差矩阵**
+
+**做什么？**
+中心化后，我们要知道数据是怎么“散开”的。协方差矩阵就像一个“地图”，告诉你每个特征自己变了多少（方差），还有特征之间怎么一起变（协方差）。
+
+**数学公式：**
+$C = \frac&#123;1&#125;&#123;n&#125; \cdot X_&#123;\text&#123;centered&#125;&#125;^T \cdot X_&#123;\text&#123;centered&#125;&#125;$
+
+- $n$ 是数据点的数量（比如3个房子）。
+- $X_&#123;\text&#123;centered&#125;&#125;^T$ 是中心化数据的转置（行变列，列变行）。
+- $C$ 是协方差矩阵。
+
+**举个例子：**
+假设有2个特征：面积和房间数，中心化后的数据是：
+
+| 面积 | 房间数 |
+| ---- | ------ |
+| -300 | -1     |
+| 0    | 0      |
+| 300  | 1      |
+
+- $X_&#123;\text&#123;centered&#125;&#125;$ 是一个 3×2 的矩阵。
+
+- 计算 
+
+  XcenteredT⋅XcenteredX_&#123;\text&#123;centered&#125;&#125;^T \cdot X_&#123;\text&#123;centered&#125;&#125;XcenteredT⋅Xcentered
+
+  ，结果是一个 2×2 的矩阵，再除以 
+
+  n=3n=3n=3
+
+  ，得到：
+
+  C=[600002002000.6667]C = \begin&#123;bmatrix&#125; 60000 &amp; 200 \\ 200 &amp; 0.6667 \end&#123;bmatrix&#125;C=[600002002000.6667]
+
+  - 对角线：面积的方差（60000），房间数的方差（0.6667）。
+  - 非对角线：面积和房间数的协方差（200），说明它们有点相关。
+
+**为什么这样做？**
+协方差矩阵告诉我们数据在哪个方向变化最大，这些方向就是我们想要的主成分。
+
+------
+
+##### **步骤 3：找到“变化最大的方向”——特征值分解**
+
+**做什么？**
+对协方差矩阵做“特征值分解”，找出它的特征值和特征向量。
+
+- **特征值（λ）**：告诉你每个方向的变化量（方差）有多大。
+- **特征向量（v）**：告诉你这些方向具体是啥。
+
+**数学公式：**
+$C \cdot v = \lambda \cdot v$
+
+- $C$ 是协方差矩阵。
+- $v$ 是特征向量，$\lambda$ 是特征值。
+
+**举个例子：**
+对上面的协方差矩阵 $C$ 做分解，可能得到：
+
+- 特征值：$\lambda_1 = 60001, \lambda_2 = 0.3333$
+- 特征向量：
+  - $v_1 = [0.999, 0.003]$（第一个主成分方向）
+  - $v_2 = [-0.003, 0.999]$（第二个主成分方向）
+
+**为什么这样做？**
+
+- 特征值大的方向（比如 $\lambda_1 = 60001$）是数据变化最大的方向，信息最多。
+- 特征向量是新坐标轴的方向，我们要用它们重新表示数据。
+
+------
+
+##### **步骤 4：挑最重要的方向，投影数据——降维**
+
+**做什么？**
+从特征值中挑最大的几个（比如前k个），用对应的特征向量把原始数据“投影”过去，得到低维数据。
+
+**数学公式：**
+$Y = X_&#123;\text&#123;centered&#125;&#125; \cdot V_k$
+
+- $V_k$ 是前k个特征向量组成的矩阵（比如 2×k）。
+- $Y$ 是降维后的数据（行数不变，列数变成k）。
+
+**举个例子：**
+
+- 假设我们只取第一个主成分（$k=1$），$V_1 = [0.999, 0.003]$。
+- 中心化数据 $X_&#123;\text&#123;centered&#125;&#125;$ 是 3×2 的矩阵：
+  $\begin&#123;bmatrix&#125; -300 &amp; -1 \\ 0 &amp; 0 \\ 300 &amp; 1 \end&#123;bmatrix&#125;$
+- 投影：$Y = X_&#123;\text&#123;centered&#125;&#125; \cdot V_1 = [-299.7, 0, 300.3]$
+- 结果：原来是2维（面积和房间数），现在是1维。
+
+**为什么这样做？**
+
+- 挑最大的特征值对应的方向，能保留最多信息（比如这里保留了99.9%的方差）。
+- 丢掉小的方向，降低维度，简化计算。
+
+------
+
+#### 一个完整的例子
+
+假设我们有3个房子的数据：
+
+| 面积 (平米) | 房间数 |
+| ----------- | ------ |
+| 1500        | 3      |
+| 1800        | 4      |
+| 2100        | 3      |
+
+1. **中心化**：
+   - 面积均值：1800，房间数均值：3.33
+   - 中心化后：`[-300, -0.33], [0, 0.67], [300, -0.33]`
+2. **协方差矩阵**：
+   $C = \begin&#123;bmatrix&#125; 60000 &amp; 50 \\ 50 &amp; 0.222 \end&#123;bmatrix&#125;$
+3. **特征值分解**：
+   - 特征值：$\lambda_1 = 60000.2, \lambda_2 = 0.02$
+   - 特征向量：$v_1 = [0.999, 0.001], v_2 = [-0.001, 0.999]$
+4. **投影**：
+   - 只取 $v_1$，新数据：`[-299.7, 0.67, 299.7]`
+   - 从2维降到1维，保留了几乎全部信息。
+
+------
+
+#### PCA 的意义
+
+- **降维**：从一大堆特征变成几个关键特征，计算更快。
+- **保留信息**：挑变化最大的方向，保证不丢关键东西。
+- **应用**：比如把几百个特征降到2个，还能画图看看数据长啥样。
+
+------
+
+#### 总结
+
+PCA 的数学实现就像一场“数据瘦身运动”：
+
+1. **中心化**：把数据搬到原点。
+2. **协方差矩阵**：看看数据怎么散。
+3. **特征值分解**：找到变化最大的方向。
+4. **投影**：把数据压到这些方向上，瘦身成功！
+
+
+
+### 7. ICA
+
+#### 1. ICA是什么？
+
+**定义**：
+独立成分分析（ICA）是一种通过线性变换从混合数据中提取独立成分的统计方法。它的目标是将观测到的混合信号分解成多个独立的源信号。
+
+**通俗解释**：
+想象你在鸡尾酒会上，房间里有很多人同时说话，几个麦克风录下了这些声音的混合信号。ICA就像一个“超级听力专家”，能从这些杂乱的录音中分辨出每个人的声音，把它们分开。
+
+**核心思想**：
+假设我们观测到的数据（如声音、图像）是由多个独立信号混合而成的，ICA通过数学方法找到一个变换，把这些混合信号“解混”，恢复出原始的独立信号。
+
+------
+
+#### 2. ICA的数学实现
+
+ICA的核心是通过线性变换来实现信号分离，具体公式如下：
+
+**基本公式**：
+$\mathbf&#123;z&#125; = \mathbf&#123;W&#125; \cdot \mathbf&#123;x&#125;$
+
+- $\mathbf&#123;x&#125;$：观测到的混合数据（输入数据），通常是一个矩阵，每一行是一个样本，每一列是一个特征。
+- $\mathbf&#123;W&#125;$：权重矩阵（也叫解混矩阵），这是我们要通过算法求解的关键。
+- $\mathbf&#123;z&#125;$：转换后的结果，表示提取出的独立成分，每一行是一个样本，每一列是一个独立的源信号。
+
+**目标**：
+找到一个合适的 $\mathbf&#123;W&#125;$，使得 $\mathbf&#123;z&#125;$ 中的各个成分（$\mathbf&#123;z&#125;$ 的每一列）之间的**统计独立性**最大化。统计独立性比简单的“无关”（如PCA中的去相关性）更强，指的是各个成分之间没有任何统计上的依赖关系。
+
+**假设**：
+
+- 源信号是**非高斯分布**的（因为高斯信号混合后无法分离）。
+- 源信号之间是**独立**的。
+
+------
+
+#### 3. ICA的具体流程
+
+图片中提到，**PCA是ICA的预处理方法**。以下是ICA的完整流程，结合数学实现：
+
+##### **步骤1：数据预处理——使用PCA降维**
+
+- **为什么用PCA？**
+
+  - PCA可以去除特征间的相关性，为ICA提供更“干净”的数据（ICA假设源信号独立，而相关性会干扰这一假设）。
+  - PCA还能减少数据维度，降低计算复杂度。
+
+- **数学实现**：
+
+  1. **中心化**：对输入数据 $\mathbf&#123;x&#125;$ 进行中心化，使每个特征的均值为0。
+     $\mathbf&#123;x&#125;_&#123;\text&#123;centered&#125;&#125; = \mathbf&#123;x&#125; - \text&#123;mean&#125;(\mathbf&#123;x&#125;)$
+
+  2. **计算协方差矩阵**：
+     $\mathbf&#123;C&#125; = \frac&#123;1&#125;&#123;n&#125; \cdot \mathbf&#123;x&#125;_&#123;\text&#123;centered&#125;&#125;^T \cdot \mathbf&#123;x&#125;_&#123;\text&#123;centered&#125;&#125;$ 其中 $n$ 是样本数。
+
+  3. **特征值分解**：对 $\mathbf&#123;C&#125;$ 进行分解，得到特征值 $\lambda_i$ 和特征向量 $\mathbf&#123;v&#125;_i$。
+     $\mathbf&#123;C&#125; \cdot \mathbf&#123;v&#125;_i = \lambda_i \cdot \mathbf&#123;v&#125;_i$
+
+  4. 白化（Whitening）
+
+     ：将数据投影到特征向量上，并除以特征值的平方根，使数据方差归一化。
+
+     xwhitened=E⋅D−1/2⋅ET⋅xcentered\mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125; = \mathbf&#123;E&#125; \cdot \mathbf&#123;D&#125;^&#123;-1/2&#125; \cdot \mathbf&#123;E&#125;^T \cdot \mathbf&#123;x&#125;_&#123;\text&#123;centered&#125;&#125;xwhitened=E⋅D−1/2⋅ET⋅xcentered
+
+     - $\mathbf&#123;E&#125;$：特征向量矩阵。
+     - $\mathbf&#123;D&#125;$：特征值对角矩阵。
+
+- **结果**：$\mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125;$ 是白化后的数据，特征间无相关性，方差为1，作为ICA的输入。
+
+##### **步骤2：ICA分离独立成分**
+
+- **目标**：在白化数据 $\mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125;$ 上找到解混矩阵 $\mathbf&#123;W&#125;$，使 $\mathbf&#123;z&#125; = \mathbf&#123;W&#125; \cdot \mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125;$ 的各个成分独立。
+
+- **独立性度量**：
+
+  - **互信息（Mutual Information）**：衡量变量间的依赖性，互信息越小，独立性越高。
+    $I(\mathbf&#123;z&#125;_i, \mathbf&#123;z&#125;_j) = H(\mathbf&#123;z&#125;_i) + H(\mathbf&#123;z&#125;_j) - H(\mathbf&#123;z&#125;_i, \mathbf&#123;z&#125;_j)$ 其中 $H$ 是熵，目标是让 $I = 0$。
+  - **负熵（Negentropy）**：衡量数据的非高斯性（因为独立信号通常是非高斯的）。
+    $J(\mathbf&#123;z&#125;) = H(\mathbf&#123;z&#125;_&#123;\text&#123;gaussian&#125;&#125;) - H(\mathbf&#123;z&#125;)$ 负熵越大，非高斯性越强，独立性越好。
+
+- **优化方法**：
+  使用迭代算法调整 $\mathbf&#123;W&#125;$，最大化独立性。常见算法包括：
+
+  - FastICA
+
+    ：通过最大化负熵快速分离独立成分。
+
+    1. 随机初始化 $\mathbf&#123;W&#125;$。
+    2. 计算 $\mathbf&#123;z&#125; = \mathbf&#123;W&#125; \cdot \mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125;$。
+    3. 更新 $\mathbf&#123;W&#125;$：
+       $\mathbf&#123;W&#125; \leftarrow E\&#123;\mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125; \cdot g(\mathbf&#123;W&#125; \cdot \mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125;)\&#125; - E\&#123;g&#39;(\mathbf&#123;W&#125; \cdot \mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125;)\&#125; \cdot \mathbf&#123;W&#125;$ 其中 $g$ 是非线性函数（如 $g(y) = \tanh(y)$），$E$ 是期望。
+    4. 正交化 $\mathbf&#123;W&#125;$（保持独立性），重复直到收敛。
+
+  - **Infomax**：通过最大化信息传输实现分离。
+
+- **结果**：$\mathbf&#123;z&#125;$ 是分离出的独立成分。
+
+------
+
+#### 4. ICA与PCA的区别
+
+- PCA（主成分分析）
+
+  ：
+
+  - 目标：最大化数据的方差。
+  - 方法：找到方差最大的正交方向。
+  - 结果：去相关性，但不保证独立性。
+
+- ICA
+
+  ：
+
+  - 目标：最大化特征间的独立性。
+  - 方法：基于非高斯性和统计独立性。
+  - 结果：分离出独立的源信号。
+
+**例子**：
+如果混合信号是两个人的声音，PCA可能会找到声音的“主要变化方向”，但不能分开两个人；ICA则能直接分离出每个人的声音。
+
+------
+
+#### 5. 数学实现的例子
+
+假设我们有2个混合信号（$\mathbf&#123;x&#125;$，2维数据），来自2个独立源信号（$\mathbf&#123;s&#125;$）：
+
+- $\mathbf&#123;x&#125;_1 = 0.5 \cdot \mathbf&#123;s&#125;_1 + 0.3 \cdot \mathbf&#123;s&#125;_2$
+- $\mathbf&#123;x&#125;_2 = 0.2 \cdot \mathbf&#123;s&#125;_1 + 0.6 \cdot \mathbf&#123;s&#125;_2$
+
+**目标**：找到 $\mathbf&#123;W&#125;$，使 $\mathbf&#123;z&#125; = \mathbf&#123;W&#125; \cdot \mathbf&#123;x&#125;$ 恢复 $\mathbf&#123;s&#125;$。
+
+1. **预处理**：
+   - 中心化：减去 $\mathbf&#123;x&#125;$ 的均值。
+   - 白化：用PCA将 $\mathbf&#123;x&#125;$ 转换为无相关性的 $\mathbf&#123;x&#125;_&#123;\text&#123;whitened&#125;&#125;$。
+2. **ICA计算**：
+   - 初始化 $\mathbf&#123;W&#125; = \begin&#123;bmatrix&#125; w_&#123;11&#125; &amp; w_&#123;12&#125; \\ w_&#123;21&#125; &amp; w_&#123;22&#125; \end&#123;bmatrix&#125;$。
+   - 用FastICA迭代优化 $\mathbf&#123;W&#125;$，最大化 $\mathbf&#123;z&#125;$ 的非高斯性。
+   - 结果可能是 $\mathbf&#123;W&#125; \approx \begin&#123;bmatrix&#125; 2 &amp; -1 \\ -0.5 &amp; 1.5 \end&#123;bmatrix&#125;$，使得 $\mathbf&#123;z&#125;_1 \approx \mathbf&#123;s&#125;_1$，$\mathbf&#123;z&#125;_2 \approx \mathbf&#123;s&#125;_2$。
+
+------
+
+#### 6. ICA的应用场景
+
+- **信号分离**：从多个麦克风的混合录音中分离每个人的声音。
+- **图像处理**：从混合图像中提取独立特征（如分离背景和前景）。
+- **脑电图分析**：从EEG信号中分离独立的脑电波。
+
+------
+
+#### 7. 总结
+
+这张图片介绍了ICA的基本概念和实现：
+
+- **概念**：通过线性变换 $\mathbf&#123;z&#125; = \mathbf&#123;W&#125; \cdot \mathbf&#123;x&#125;$ 从混合数据中提取独立成分。
+- **流程**：先用PCA预处理（降维和去相关），再用ICA分离独立信号。
+- **数学实现**：中心化 → 白化 → 优化 $\mathbf&#123;W&#125;$（如FastICA）。
+- **与PCA区别**：PCA关注方差，ICA关注独立性。
+</code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">FeiZao</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2025/03/25/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/">http://example.com/2025/03/25/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">FeiZao</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/04/02/vscode-ssh%E4%BD%BF%E7%94%A8/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="vscode-ssh使用">
+                        
+                        <span class="card-title">vscode-ssh使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-02
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/SSH/" class="post-category">
+                                    SSH
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SSH/">
+                        <span class="chip bg-color">SSH</span>
+                    </a>
+                    
+                    <a href="/tags/VSCODE/">
+                        <span class="chip bg-color">VSCODE</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/03/10/transformer%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="transformer学习记录">
+                        
+                        <span class="card-title">transformer学习记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    深度学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/transformer/">
+                        <span class="chip bg-color">transformer</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AF%8D%E5%B5%8C%E5%85%A5/">
+                        <span class="chip bg-color">词嵌入</span>
+                    </a>
+                    
+                    <a href="/tags/embeddings/">
+                        <span class="chip bg-color">embeddings</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5346482649"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.3'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2025</span>
+            
+            <a href="/about" target="_blank">FeiZao</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/nipsilon.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true,"scale":0.5},"react":{"opacity":0.7},"log":false});</script></body>
+
+</html>
